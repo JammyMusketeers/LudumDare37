@@ -47,11 +47,27 @@ public class Chunk
 		var maxObjectSpawn = GameManager.Instance.maxObjectSpawn;
 		var chunkObjectPrefabs = GameManager.Instance.chunkObjectPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minObjectSpawn, maxObjectSpawn + 1);
+		var candidates = new List<ChunkObject>();
+
+		foreach (var prefab in chunkObjectPrefabs)
+		{
+			var randomChance = UnityEngine.Random.Range(0, 101);
+
+			if (randomChance < prefab.spawnChance)
+			{
+				candidates.Add(prefab);
+			}
+		}
+
+		if (candidates.Count == 0)
+		{
+			return;
+		}
 
 		while (randomAmount > 0)
 		{
-			var randomIndex = UnityEngine.Random.Range(0, chunkObjectPrefabs.Length);
-			var randomObject = chunkObjectPrefabs[randomIndex];
+			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
+			var randomObject = candidates[randomIndex];
 			var chunkObject = GameObject.Instantiate(randomObject);
 
 			chunkObject.transform.position = new Vector3(
@@ -76,11 +92,27 @@ public class Chunk
 		var maxLootSpawn = GameManager.Instance.maxLootSpawn;
 		var lootItemPrefabs = GameManager.Instance.lootItemPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
+		var candidates = new List<ChunkObject>();
+
+		foreach (var prefab in lootItemPrefabs)
+		{
+			var randomChance = UnityEngine.Random.Range(0, 101);
+
+			if (randomChance < prefab.spawnChance)
+			{
+				candidates.Add(prefab);
+			}
+		}
+
+		if (candidates.Count == 0)
+		{
+			return;
+		}
 
 		while (randomAmount > 0)
 		{
-			var randomIndex = UnityEngine.Random.Range(0, lootItemPrefabs.Length);
-			var randomLoot = lootItemPrefabs[randomIndex];
+			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
+			var randomLoot = candidates[randomIndex];
 			var lootObject = GameObject.Instantiate(randomLoot);
 
 			lootObject.transform.position = new Vector3(
