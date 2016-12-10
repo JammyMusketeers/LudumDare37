@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,9 +9,11 @@ public class GameManager : Singleton<GameManager>
 	public Tram CurrentTram { get; set; }
 
 	public IsometricCamera camera;
+	public Image fadeToBlack;
 	public int chunkSize = 24;
 	public int chunkDistance = 2;
 	public Ground groundPrefab;
+	public GameObject railPrefab;
 	public Player player;
 
 	public LootItem[] lootItemPrefabs;
@@ -23,6 +26,30 @@ public class GameManager : Singleton<GameManager>
 
 	private float _nextUpdateGround;
 	private List<Chunk> _chunks;
+
+	private Action _fadeToBlackCallback;
+	private float _targetFadeAlpha;
+	private bool _isFading;
+
+	public void FadeToBlack(Action callback = null)
+	{
+		if (!_isFading && _targetFadeAlpha == 0f)
+		{
+			_fadeToBlackCallback = callback;
+			_targetFadeAlpha = 1f;
+			_isFading = true;
+		}
+	}
+
+	public void FadeFromBlack(Action callback = null)
+	{
+		if (!_isFading && _targetFadeAlpha == 1f)
+		{
+			_fadeToBlackCallback = callback;
+			_targetFadeAlpha = 0f;
+			_isFading = true;
+		}
+	}
 
 	public Chunk GetChunkAt(Vector3 position)
 	{
@@ -58,6 +85,11 @@ public class GameManager : Singleton<GameManager>
 		{
 			chunk.AddLoot();
 			chunk.AddObjects();
+		}
+
+		if (x == 0)
+		{
+			chunk.AddRail();
 		}
 
 		_chunks.Add(chunk);
@@ -102,6 +134,28 @@ public class GameManager : Singleton<GameManager>
 
 	protected virtual void Update()
 	{
+		if (_isFading)
+		{
+			var color = fadeToBlack.color;
+
+			color.a = Mathf.Lerp(color.a, _targetFadeAlpha, Time.deltaTime * 8f);
+
+			fadeToBlack.color = color;
+
+			if (Mathf.Approximately(color.a, _targetFadeAlpha))
+			{
+				var callback = _fadeToBlackCallback;
+
+				_fadeToBlackCallback = null;
+				_isFading = false;
+
+				if (callback != null)
+				{
+					callback();
+				}
+			}
+		}
+
 		if (Time.time >= _nextUpdateGround)
 		{
 			var playerPosition = player.transform.position;

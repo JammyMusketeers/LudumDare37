@@ -5,31 +5,75 @@ public class Player : MonoBehaviour
 {
 	public PlayerControl controller;
 
-	public bool IsTramCollision(Collision collision)
+	private bool _isInsideTram;
+	private bool _canEnterExitTram;
+
+	protected virtual void Update()
 	{
-		var tram = collision.gameObject.GetComponentInParent<Tram>();
-
-		if (tram != null && tram == GameManager.Instance.CurrentTram)
+		if (Input.GetKeyUp(KeyCode.E))
 		{
-			return true;
-		}
+			if (_canEnterExitTram)
+			{
+				var tram = GameManager.Instance.CurrentTram;
 
-		return false;
+				if (_isInsideTram)
+				{
+					GameManager.Instance.FadeToBlack(() =>
+					{
+						_isInsideTram = false;
+						transform.parent = null;
+
+						transform.position = tram.outsideSpawn.position;
+						transform.rotation = tram.outsideSpawn.rotation;
+
+						controller.SetPosition(transform.position);
+						controller.SetRotation(transform.rotation);
+
+						tram.PlayerLeave(this);
+
+						GameManager.Instance.FadeFromBlack();
+					});
+				}
+				else
+				{
+					GameManager.Instance.FadeToBlack(() =>
+					{
+						_isInsideTram = true;
+
+						transform.parent = tram.transform;
+						transform.position = tram.insideSpawn.position;
+						transform.rotation = tram.insideSpawn.rotation;
+
+						controller.SetPosition(transform.position);
+						controller.SetRotation(transform.rotation);
+
+						tram.PlayerEnter(this);
+
+						GameManager.Instance.FadeFromBlack();
+					});
+				}
+			}
+		}
 	}
 
-	protected virtual void OnCollisionEnter(Collision collision)
+	protected virtual void OnTriggerEnter(Collider collider)
 	{
-		if (IsTramCollision(collision))
+		var tram = GameManager.Instance.CurrentTram;
+
+		if (!_isInsideTram && collider == tram.enterExitTrigger)
 		{
-			transform.parent = collision.gameObject.transform.parent;
+			_canEnterExitTram = true;
+
 		}
  	}
 
-	protected virtual void OnCollisionExit(Collision collision)
+	protected virtual void OnTriggerExit(Collider collider)
 	{
-		if (IsTramCollision(collision))
+		var tram = GameManager.Instance.CurrentTram;
+
+		if (_isInsideTram && collider == tram.enterExitTrigger)
 		{
-			transform.parent = null;
+			_canEnterExitTram = true;
 		}
  	}
 }

@@ -71,8 +71,9 @@ public class PlayerControl : MonoBehaviour
 	void Update()
 	{
 		// fly
-		if(Input.GetButtonDown ("Fly"))
-			fly = !fly;
+		//if(Input.GetButtonDown ("Fly"))
+		//	fly = !fly;
+
 		aim = Input.GetButton("Aim");
 		h = Input.GetAxis("Horizontal");
 		v = Input.GetAxis("Vertical");
@@ -198,7 +199,17 @@ public class PlayerControl : MonoBehaviour
 		}
 
 		return targetDirection;
-	}	
+	}
+
+	public void SetPosition(Vector3 position)
+	{
+		GetComponent<Rigidbody>().MovePosition(position);
+	}
+
+	public void SetRotation(Quaternion rotation)
+	{
+		GetComponent<Rigidbody>().MoveRotation(rotation);
+	}
 
 	private void Repositioning()
 	{

@@ -30,6 +30,16 @@ public class Chunk
 		_ground.SetPosition(x, z);
 	}
 
+	public void AddRail()
+	{
+		var chunkSize = GameManager.Instance.chunkSize;
+		var railSection = GameObject.Instantiate(GameManager.Instance.railPrefab);
+
+		railSection.transform.position = new Vector3(x * chunkSize, 0f, z * chunkSize);
+
+		AddChild(railSection);
+	}
+
 	public Ground GetGround()
 	{
 		return _ground;
