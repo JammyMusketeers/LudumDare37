@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,8 +10,11 @@ public class GameManager : Singleton<GameManager>
 	public IsometricCamera camera;
 	public int chunkSize = 24;
 	public int chunkDistance = 2;
+	public LootItem[] lootItemPrefabs;
 	public Ground groundPrefab;
 	public Player player;
+	public int minLootSpawn = 0;
+	public int maxLootSpawn = 4;
 
 	private float _nextUpdateGround;
 	private List<Chunk> _chunks;
@@ -36,7 +40,7 @@ public class GameManager : Singleton<GameManager>
 		return null;
 	}
 
-	public void AddChunk(int x, int z)
+	public void AddChunk(int x, int z, bool addLoot = false)
 	{
 		var chunk = new Chunk();
 
@@ -45,15 +49,48 @@ public class GameManager : Singleton<GameManager>
 
 		chunk.AddGround();
 
+		if (addLoot)
+		{
+			var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
+
+			while (randomAmount > 0)
+			{
+				var randomIndex = UnityEngine.Random.Range(0, lootItemPrefabs.Length);
+				var randomLoot = lootItemPrefabs[randomIndex];
+				var lootObject = Instantiate(randomLoot);
+
+				lootObject.transform.position = new Vector3(
+					(x * chunkSize) + UnityEngine.Random.Range(0, chunkSize),
+					0f,
+					(z * chunkSize) + UnityEngine.Random.Range(0, chunkSize)
+				);
+
+				chunk.AddChild(lootObject.gameObject);
+
+				randomAmount--;
+			}
+		}
+
 		_chunks.Add(chunk);
 	}
 
-	public void AddChunk(Vector3 position)
+	public void AddChunk(Vector3 position, bool addLoot = false)
 	{
 		var chunkX = Mathf.FloorToInt(position.x / chunkSize);
 		var chunkZ = Mathf.FloorToInt(position.z / chunkSize);
 
-		AddChunk(chunkX, chunkZ);
+		AddChunk(chunkX, chunkZ, addLoot);
+	}
+
+	public void ForEachChunkInRange(int chunkX, int chunkZ, int distance, Action<int, int> callback)
+	{
+		for (int x = chunkX - distance; x <= chunkX + distance; x++)
+		{
+			for (int z = chunkZ - distance; z <= chunkZ + distance; z++)
+			{
+				callback(x, z);
+			}
+		}
 	}
 
 	protected override void OnSetup()
@@ -68,7 +105,7 @@ public class GameManager : Singleton<GameManager>
 
 				if (chunk == null)
 				{
-					AddChunk(x, z);
+					AddChunk(x, z, true);
 				}
 			}
 		}
@@ -79,21 +116,31 @@ public class GameManager : Singleton<GameManager>
 		if (Time.time >= _nextUpdateGround)
 		{
 			var playerPosition = player.transform.position;
-			var chunkX = Mathf.FloorToInt(playerPosition.x / chunkSize);
-			var chunkZ = Mathf.FloorToInt(playerPosition.z / chunkSize);
+			var tramPosition = CurrentTram.transform.position;
+			var playerChunkX = Mathf.FloorToInt(playerPosition.x / chunkSize);
+			var playerChunkZ = Mathf.FloorToInt(playerPosition.z / chunkSize);
+			var tramChunkX = Mathf.FloorToInt(tramPosition.x / chunkSize);
+			var tramChunkZ = Mathf.FloorToInt(tramPosition.z / chunkSize);
 
-			for (int x = chunkX - chunkDistance; x <= chunkX + chunkDistance; x++)
+			ForEachChunkInRange(tramChunkX, tramChunkZ, chunkDistance, (x, z) =>
 			{
-				for (int z = chunkZ - chunkDistance; z <= chunkZ + chunkDistance; z++)
-				{
-					var chunk = GetChunkAt(x, z);
+				var chunk = GetChunkAt(x, z);
 
-					if (chunk == null)
-					{
-						AddChunk(x, z);
-					}
+				if (chunk == null)
+				{
+					AddChunk(x, z, true);
 				}
-			}
+			});
+
+			ForEachChunkInRange(playerChunkX, playerChunkZ, chunkDistance, (x, z) =>
+			{
+				var chunk = GetChunkAt(x, z);
+
+				if (chunk == null)
+				{
+					AddChunk(x, z);
+				}
+			});
 
 			for (int i = _chunks.Count - 1; i >= 0; i--)
 			{
@@ -102,8 +149,8 @@ public class GameManager : Singleton<GameManager>
 
 				if (clearTime == 0f)
 				{
-					if ((chunk.x < chunkX - chunkDistance || chunk.x > chunkX + chunkDistance)
-						|| (chunk.z < chunkZ - chunkDistance || chunk.z > chunkZ + chunkDistance))
+					if (!chunk.IsInRange(playerChunkX, playerChunkZ, chunkDistance)
+						&& !chunk.IsInRange(tramChunkX, tramChunkZ, chunkDistance))
 					{
 						chunk.SetClearTime(30f);
 					}

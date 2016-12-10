@@ -40,6 +40,17 @@ public class Chunk
 		_children.Add(child);
 	}
 
+	public bool IsInRange(int otherX, int otherZ, int distance)
+	{
+		if ((x < otherX - distance || x > otherX + distance)
+			|| (z < otherZ - distance || z > otherZ + distance))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	public void RemoveChild(GameObject child)
 	{
 		_children.Remove(child);
