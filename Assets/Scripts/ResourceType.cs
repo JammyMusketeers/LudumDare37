@@ -5,5 +5,6 @@ public enum ResourceType
 {
 	HUNGER,
 	HEALTH,
-	FUEL
+	FUEL,
+	ANY
 }

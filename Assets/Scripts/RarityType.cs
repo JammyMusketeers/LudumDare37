@@ -6,5 +6,6 @@ public enum RarityType
 	FREQUENT,
 	COMMON,
 	RARE,
-	VERY_RARE
+	VERY_RARE,
+	ANY
 }

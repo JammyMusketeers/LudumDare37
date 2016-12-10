@@ -10,11 +10,16 @@ public class GameManager : Singleton<GameManager>
 	public IsometricCamera camera;
 	public int chunkSize = 24;
 	public int chunkDistance = 2;
-	public LootItem[] lootItemPrefabs;
 	public Ground groundPrefab;
 	public Player player;
+
+	public LootItem[] lootItemPrefabs;
 	public int minLootSpawn = 0;
 	public int maxLootSpawn = 4;
+
+	public ChunkObject[] chunkObjectPrefabs;
+	public int minObjectSpawn = 0;
+	public int maxObjectSpawn = 4;
 
 	private float _nextUpdateGround;
 	private List<Chunk> _chunks;
@@ -51,24 +56,8 @@ public class GameManager : Singleton<GameManager>
 
 		if (addLoot)
 		{
-			var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
-
-			while (randomAmount > 0)
-			{
-				var randomIndex = UnityEngine.Random.Range(0, lootItemPrefabs.Length);
-				var randomLoot = lootItemPrefabs[randomIndex];
-				var lootObject = Instantiate(randomLoot);
-
-				lootObject.transform.position = new Vector3(
-					(x * chunkSize) + UnityEngine.Random.Range(0, chunkSize),
-					0f,
-					(z * chunkSize) + UnityEngine.Random.Range(0, chunkSize)
-				);
-
-				chunk.AddChild(lootObject.gameObject);
-
-				randomAmount--;
-			}
+			chunk.AddLoot();
+			chunk.AddObjects();
 		}
 
 		_chunks.Add(chunk);
