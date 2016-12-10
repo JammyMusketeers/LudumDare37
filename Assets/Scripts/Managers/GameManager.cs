@@ -24,6 +24,10 @@ public class GameManager : Singleton<GameManager>
 	public int minObjectSpawn = 0;
 	public int maxObjectSpawn = 4;
 
+	public EnvironmentObject[] environmentObjectPrefabs;
+	public int minEnvironmentSpawn = 0;
+	public int maxEnvironmentSpawn = 4;
+
 	private float _nextUpdateGround;
 	private List<Chunk> _chunks;
 
@@ -80,11 +84,17 @@ public class GameManager : Singleton<GameManager>
 		chunk.z = z;
 
 		chunk.AddGround();
+		
 
-		if (addLoot)
+		if (addLoot && x !=0)
 		{
 			chunk.AddLoot();
 			chunk.AddObjects();
+		}
+
+		if(x !=0)
+		{
+			chunk.AddEnvironment();
 		}
 
 		if (x == 0)

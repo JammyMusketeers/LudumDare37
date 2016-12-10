@@ -137,6 +137,50 @@ public class Chunk
 		}
 	}
 
+	public void AddEnvironment()
+	{
+		var chunkSize = GameManager.Instance.chunkSize;
+		var minEnvironmentSpawn = GameManager.Instance.minEnvironmentSpawn;
+		var maxEnvironmentSpawn = GameManager.Instance.minEnvironmentSpawn;
+		var environmentObjectPrefabs = GameManager.Instance.environmentObjectPrefabs;
+		var randomAmount = UnityEngine.Random.Range(minEnvironmentSpawn, maxEnvironmentSpawn + 1);
+		var candidates = new List<EnvironmentObject>();
+
+		foreach (var prefab in environmentObjectPrefabs)
+		{
+			var randomChance = UnityEngine.Random.Range(0, 101);
+
+			if (randomChance < prefab.spawnChance)
+			{
+				candidates.Add(prefab);
+			}
+		}
+
+		if (candidates.Count == 0)
+		{
+			return;
+		}
+
+		while (randomAmount > 0)
+		{
+			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
+			var randomLoot = candidates[randomIndex];
+			var environmentObject = GameObject.Instantiate(randomLoot);
+
+			environmentObject.transform.position = new Vector3(
+				(x * chunkSize) + UnityEngine.Random.Range(-12, 12),
+				0f,
+				(z * chunkSize) + UnityEngine.Random.Range(-12, 12)
+			);
+
+			environmentObject.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.Range(0,360), 0f);
+
+			AddChild(environmentObject.gameObject);
+
+			randomAmount--;
+		}
+	}
+
 	public bool IsInRange(int otherX, int otherZ, int distance)
 	{
 		if ((x < otherX - distance || x > otherX + distance)
