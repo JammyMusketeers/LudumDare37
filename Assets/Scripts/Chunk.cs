@@ -181,6 +181,50 @@ public class Chunk
 		}
 	}
 
+	public void AddGrass()
+	{
+		var chunkSize = GameManager.Instance.chunkSize;
+		var minGrassSpawn = GameManager.Instance.minGrassSpawn;
+		var maxGrassSpawn = GameManager.Instance.maxGrassSpawn;
+		var grassObjectPrefabs = GameManager.Instance.grassObjectPrefabs;
+		var randomAmount = UnityEngine.Random.Range(minGrassSpawn, maxGrassSpawn + 1);
+		var candidates = new List<GrassObject>();
+
+		foreach (var prefab in grassObjectPrefabs)
+		{
+			var randomChance = UnityEngine.Random.Range(0, 101);
+
+			if (randomChance < prefab.spawnChance)
+			{
+				candidates.Add(prefab);
+			}
+		}
+
+		if (candidates.Count == 0)
+		{
+			return;
+		}
+
+		while (randomAmount > 0)
+		{
+			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
+			var randomLoot = candidates[randomIndex];
+			var environmentObject = GameObject.Instantiate(randomLoot);
+
+			environmentObject.transform.position = new Vector3(
+				(x * chunkSize) + UnityEngine.Random.Range(-12f, 12f),
+				0f,
+				(z * chunkSize) + UnityEngine.Random.Range(-12f, 12f)
+			);
+
+			environmentObject.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.Range(0,360), 0f);
+
+			AddChild(environmentObject.gameObject);
+
+			randomAmount--;
+		}
+	}
+
 	public bool IsInRange(int otherX, int otherZ, int distance)
 	{
 		if ((x < otherX - distance || x > otherX + distance)
