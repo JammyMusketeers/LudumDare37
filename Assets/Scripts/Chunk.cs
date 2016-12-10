@@ -92,7 +92,7 @@ public class Chunk
 		var maxLootSpawn = GameManager.Instance.maxLootSpawn;
 		var lootItemPrefabs = GameManager.Instance.lootItemPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
-		var candidates = new List<ChunkObject>();
+		var candidates = new List<LootItem>();
 
 		foreach (var prefab in lootItemPrefabs)
 		{
