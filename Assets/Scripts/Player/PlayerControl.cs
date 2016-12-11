@@ -75,6 +75,15 @@ public class PlayerControl : MonoBehaviour
 
 	void Update()
 	{
+		if (GameManager.Instance.CurrentTram.IsBeingOperated())
+		{
+			h = 0f;
+			v = 0f;
+			isMoving = false;
+
+			return;
+		}
+
 		h = Input.GetAxis("Horizontal");
 		v = Input.GetAxis("Vertical");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
@@ -136,6 +145,11 @@ public class PlayerControl : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (GameManager.Instance.CurrentTram.IsBeingOperated())
+		{
+			return;
+		}
+
 		if (!_isJumpingOnToTram)
 		{
 			anim.SetFloat(hFloat, h);

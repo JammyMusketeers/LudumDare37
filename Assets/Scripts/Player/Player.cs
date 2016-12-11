@@ -56,8 +56,33 @@ public class Player : MonoBehaviour
 
 	protected virtual void Update()
 	{
+		var tram = GameManager.Instance.CurrentTram;
+
+		if (tram.IsBeingOperated())
+		{
+
+		}
+		
 		if (Input.GetButtonDown("Use"))
 		{
+			if (_isInsideTram)
+			{
+				Debug.Log("yes");
+
+				if (tram.IsCloseToLever(transform.position))
+				{
+					Debug.Log("ay");
+					if (!tram.IsBeingOperated())
+					{
+						tram.SetIsBeingOperated(true);
+					}
+					else
+					{
+						tram.SetIsBeingOperated(false);
+					}
+				}
+			}
+
 			if(_hasItem && _canFillEngine)
 			{
 				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
@@ -72,8 +97,6 @@ public class Player : MonoBehaviour
 				_hasItem = false;
 			}
 		}
-
-		var tram = GameManager.Instance.CurrentTram;
 
 		if (_canEnterTram)
 		{
