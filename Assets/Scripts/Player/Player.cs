@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 	public PlayerControl controller;
 
 	private bool _isInsideTram;
-	private bool _canEnterExitTram;
+	private bool _canEnterTram;
 	public bool _hasItem;
 	public bool _canFillEngine;
 	private bool _takeDamage;
@@ -44,6 +44,16 @@ public class Player : MonoBehaviour
 		health = Mathf.Clamp(health,0, 100f);
 	}
 
+	public bool IsInsideTram()
+	{
+		return _isInsideTram;
+	}
+
+	public bool CanEnterTram()
+	{
+		return _canEnterTram;
+	}
+
 	protected virtual void Update()
 	{
 		if (Input.GetButtonDown("Use"))
@@ -61,50 +71,26 @@ public class Player : MonoBehaviour
 				currentLootItem = null;
 				_hasItem = false;
 			}
+		}
 
+		var tram = GameManager.Instance.CurrentTram;
 
-			if (_canEnterExitTram)
+		if (_canEnterTram)
+		{
+			if (!_isInsideTram)
 			{
-				var tram = GameManager.Instance.CurrentTram;
-
-				if (_isInsideTram)
+				if (Input.GetButtonDown("Jump"))
 				{
-					GameManager.Instance.FadeToBlack(() =>
+					_isInsideTram = true;
+
+					controller.JumpOnToTram(tram, () =>
 					{
-						_isInsideTram = false;
-						transform.parent = null;
-
-						transform.position = tram.outsideSpawn.position;
-						transform.rotation = tram.outsideSpawn.rotation;
-
-						controller.SetPosition(transform.position);
-						controller.SetRotation(transform.rotation);
-
-						tram.PlayerLeave(this);
-
-						GameManager.Instance.FadeFromBlack();
-					});
-				}
-				else
-				{
-					GameManager.Instance.FadeToBlack(() =>
-					{
-						_isInsideTram = true;
-
-						transform.parent = tram.transform;
-						transform.position = tram.insideSpawn.position;
-						transform.rotation = tram.insideSpawn.rotation;
-
-						controller.SetPosition(transform.position);
-						controller.SetRotation(transform.rotation);
-
 						tram.PlayerEnter(this);
-
-						GameManager.Instance.FadeFromBlack();
 					});
+
+					_canEnterTram = false;
 				}
 			}
-
 		}
 
 		if (Input.GetButtonDown("Pickup"))
@@ -148,30 +134,41 @@ public class Player : MonoBehaviour
 	{
 		var tram = GameManager.Instance.CurrentTram;
 
-		if (!_isInsideTram && collider == tram.enterExitTrigger)
+		if (collider == tram.entryTrigger)
 		{
-			_canEnterExitTram = true;
+			_canEnterTram = true;
 		}
 
-		if(collider.gameObject.tag == "Loot")
+		if (collider == tram.exitTrigger)
+		{
+			if (_isInsideTram)
+			{
+				_isInsideTram = false;
+				
+				transform.parent = null;
+
+				tram.PlayerLeave(this);
+			}
+		}
+
+		if (collider.gameObject.tag == "Loot")
 		{
 			lastTouchedLootItem = collider.gameObject;
 		}
 
-		if(collider.gameObject.tag == "Hazard")
+		if (collider.gameObject.tag == "Hazard")
 		{
 			_takeDamage = true;
 		}
 
-		if(collider.gameObject.tag == "OneHit")
+		if (collider.gameObject.tag == "OneHit")
 		{
 			collider.gameObject.SendMessage("HitPlayer", this);
 		}
 
-		if(collider == tram.engineCollider)
+		if (collider == tram.engineCollider)
 		{
 			_canFillEngine = true;
-			_canEnterExitTram = false;
 		}
 		
  	}
@@ -180,15 +177,14 @@ public class Player : MonoBehaviour
 	{
 		var tram = GameManager.Instance.CurrentTram;
 
-		if (_isInsideTram && collider == tram.enterExitTrigger)
+		if (collider == tram.entryTrigger)
 		{
-			_canEnterExitTram = true;
+			_canEnterTram = false;
 		}
 
-		if(collider == tram.engineCollider)
+		if (collider == tram.engineCollider)
 		{
 			_canFillEngine = false;
-			_canEnterExitTram = true;
 		}
 
 		if(collider.gameObject.tag == "Hazard")

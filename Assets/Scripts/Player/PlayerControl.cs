@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour
@@ -7,7 +8,6 @@ public class PlayerControl : MonoBehaviour
 	public float walkSpeed = 0.15f;
 	public float runSpeed = 1.0f;
 	public float sprintSpeed = 2.0f;
-	public float flySpeed = 4.0f;
 	public float stormSpeedDecay;
 
 	public float turnSmoothing = 3.0f;
@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
 	
 	private float speed;
 
+	private Action _tweenToCallback;
 	private Vector3 lastDirection;
 
 	private Animator anim;
@@ -29,22 +30,24 @@ public class PlayerControl : MonoBehaviour
 	private int hFloat;
 	private int vFloat;
 	private int aimBool;
-	private int flyBool;
 	private int groundedBool;
 	private Transform cameraTransform;
 
+	private bool _isJumpingOnToTram;
+	private bool _hasStartedJumpAnim;
+	private Vector3 _startJumpTramPos;
+	private Transform _tweenTo;
+
+	private Player _player;
+
 	private float h;
 	private float v;
-
-//	private bool aim;
 
 	private bool run;
 	private bool sprint;
 
 	private bool isMoving;
 
-	// fly
-	private bool fly = false;
 	private float distToGround;
 	private float sprintFactor;
 
@@ -58,56 +61,114 @@ public class PlayerControl : MonoBehaviour
 		hFloat = Animator.StringToHash("H");
 		vFloat = Animator.StringToHash("V");
 		aimBool = Animator.StringToHash("Aim");
-		// fly
-		flyBool = Animator.StringToHash ("Fly");
 		groundedBool = Animator.StringToHash("Grounded");
 		distToGround = GetComponent<Collider>().bounds.extents.y;
 		sprintFactor = sprintSpeed / runSpeed;
+
+		_player = GetComponent<Player>();
 	}
 
-	bool IsGrounded() {
+	bool IsGrounded()
+	{
 		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
 	}
 
 	void Update()
 	{
-		// fly
-		//if(Input.GetButtonDown ("Fly"))
-		//	fly = !fly;
-
-		//aim = Input.GetButton("Aim");
 		h = Input.GetAxis("Horizontal");
 		v = Input.GetAxis("Vertical");
-		//run = Input.GetButton ("Run");
-		//sprint = Input.GetButton ("Sprint");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
+
+		if (_isJumpingOnToTram)
+		{	
+			if (!_hasStartedJumpAnim)
+			{
+				if (IsAnimationName("IdleJump") || IsAnimationName("LocomotionJump"))
+				{
+					_hasStartedJumpAnim = true;
+				}
+				else
+				{
+					return;
+				}
+			}
+
+			var animationProgress = GetCurrentAnimationProgress();
+
+			if (animationProgress >= 0.9f)
+			{
+				GetComponent<Rigidbody>().isKinematic = false;
+
+				transform.position = _tweenTo.position;
+
+				if (_tweenToCallback != null)
+				{
+					_tweenToCallback();
+				}
+
+				SetJumpAnim(false);
+
+				_isJumpingOnToTram = false;
+				_tweenTo = null;
+
+				return;
+			}
+
+			var worldPosTarget = GameManager.Instance.CurrentTram.transform.TransformPoint(_startJumpTramPos);
+
+			transform.position = Vector3.Slerp(worldPosTarget, _tweenTo.position, animationProgress);
+
+			var currentRotation = transform.eulerAngles;
+
+			transform.LookAt(_tweenTo);
+
+			var newRotation = transform.eulerAngles;
+
+			newRotation.x = 0f;
+			newRotation.z = 0f;
+			
+			transform.eulerAngles = Vector3.Lerp(currentRotation, newRotation, animationProgress);
+
+			SetPosition(transform.position);
+			SetRotation(transform.rotation);
+		}
 	}
 
 	void FixedUpdate()
 	{
-		//anim.SetBool (aimBool, IsAiming());
-		anim.SetFloat(hFloat, h);
-		anim.SetFloat(vFloat, v);
-		
-		// Fly
-		anim.SetBool (flyBool, fly);
-		GetComponent<Rigidbody>().useGravity = !fly;
-		anim.SetBool (groundedBool, IsGrounded ());
-		if(fly)
-			FlyManagement(h,v);
-
-		else
+		if (!_isJumpingOnToTram)
 		{
+			anim.SetFloat(hFloat, h);
+			anim.SetFloat(vFloat, v);
+		
+			GetComponent<Rigidbody>().useGravity = true;
+			anim.SetBool(groundedBool, IsGrounded ());
+
 			MovementManagement (h, v, run, sprint);
-			JumpManagement ();
+
+			if (!_player.IsInsideTram() && !_player.CanEnterTram())
+			{
+				JumpManagement();
+			}
 		}
 	}
 
-	// fly
-	void FlyManagement(float horizontal, float vertical)
+	public void JumpOnToTram(Tram tram, Action callback)
 	{
-		Vector3 direction = Rotating(horizontal, vertical);
-		GetComponent<Rigidbody>().AddForce(direction * flySpeed * 100 * (sprint?sprintFactor:1));
+		_tweenToCallback = callback;
+		_hasStartedJumpAnim = false;
+		_startJumpTramPos = tram.transform.InverseTransformPoint(transform.position);
+		_isJumpingOnToTram = true;
+		_tweenTo = tram.insideSpawn;
+
+		transform.parent = tram.transform;
+
+		SetJumpAnim(true);
+	}
+
+	public void SetJumpAnim(bool isActive)
+	{
+		anim.SetBool(jumpBool, isActive);
 	}
 
 	void JumpManagement()
@@ -118,6 +179,7 @@ public class PlayerControl : MonoBehaviour
 			if(timeToNextJump > 0)
 				timeToNextJump -= Time.deltaTime;
 		}
+
 		if (Input.GetButtonDown ("Jump"))
 		{
 			anim.SetBool(jumpBool, true);
@@ -155,14 +217,15 @@ public class PlayerControl : MonoBehaviour
 			speed = 0f;
 			anim.SetFloat(speedFloat, 0f);
 		}
+
 		GetComponent<Rigidbody>().AddForce(Vector3.forward*speed);
 	}
 
 	Vector3 Rotating(float horizontal, float vertical)
 	{
 		Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
-		if (!fly)
-			forward.y = 0.0f;
+
+		forward.y = 0.0f;
 		forward = forward.normalized;
 
 		Vector3 right = new Vector3(forward.z, 0, -forward.x);
@@ -178,15 +241,12 @@ public class PlayerControl : MonoBehaviour
 		if((isMoving && targetDirection != Vector3.zero))
 		{
 			Quaternion targetRotation = Quaternion.LookRotation (targetDirection, Vector3.up);
-			// fly
-			if (fly)
-				targetRotation *= Quaternion.Euler (90, 0, 0);
-
 			Quaternion newRotation = Quaternion.Slerp(GetComponent<Rigidbody>().rotation, targetRotation, finalTurnSmoothing * Time.deltaTime);
+			
 			GetComponent<Rigidbody>().MoveRotation (newRotation);
 			lastDirection = targetDirection;
 		}
-		//idle - fly or grounded
+
 		if(!(Mathf.Abs(h) > 0.9 || Mathf.Abs(v) > 0.9))
 		{
 			Repositioning();
@@ -217,9 +277,18 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
-	public bool IsFlying()
+	public float GetCurrentAnimationProgress()
 	{
-		return fly;
+		 var currentState = anim.GetCurrentAnimatorStateInfo(0);
+     
+		 return currentState.normalizedTime % 1;
+	}
+
+	public bool IsAnimationName(string name)
+	{
+		 var currentState = anim.GetCurrentAnimatorStateInfo(0);
+     
+		 return currentState.IsName(name);
 	}
 
 	public bool isSprinting()

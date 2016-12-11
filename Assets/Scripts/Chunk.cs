@@ -173,7 +173,7 @@ public class Chunk
 				(z * chunkSize) + UnityEngine.Random.Range(-12, 12)
 			);
 
-			environmentObject.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.Range(0,360), 0f);
+			environmentObject.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.Range(0, 360), 0f);
 
 			AddChild(environmentObject.gameObject);
 

@@ -100,13 +100,13 @@ public class GameManager : Singleton<GameManager>
 		chunk.AddGrass();
 		
 
-		if (addLoot && x !=0)
+		if (addLoot && x != 0)
 		{
 			chunk.AddLoot();
 			chunk.AddObjects();
 		}
 
-		if(x !=0)
+		if (x != 0)
 		{
 			chunk.AddEnvironment();
 		}
@@ -281,8 +281,5 @@ public class GameManager : Singleton<GameManager>
 		interfaceManager.SetHunger(player.hunger /100f);
 		interfaceManager.SetFuelConsumption(CurrentTram.GetFuelConsumption());
 		interfaceManager.SetFuel(CurrentTram.fuel / 100f);
-
-		Debug.Log("Storm Distance = " + Vector3.Distance(storm.transform.position, CurrentTram.transform.position));
-		
 	}
 }

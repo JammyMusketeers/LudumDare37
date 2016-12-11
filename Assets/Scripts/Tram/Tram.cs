@@ -10,7 +10,8 @@ public class Tram : MonoBehaviour
 	public float momentumDecay = 0.95f;
 	public Vector3 moveVector;
 	public GameObject exterior;
-	public Collider enterExitTrigger;
+	public Collider entryTrigger;
+	public Collider exitTrigger;
 	public Collider exteriorCollider;
 	public Collider[] interiorColliders;
 	public Collider engineCollider;
@@ -47,6 +48,7 @@ public class Tram : MonoBehaviour
 	public virtual void SetThrottle(float newThrottleLevel)
 	{
 		throttleLevel = newThrottleLevel;
+
 		if (throttleLevel > 1)
 			throttleLevel = 1;
 
