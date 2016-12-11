@@ -18,6 +18,8 @@ public class Tram : MonoBehaviour
 	public Transform insideSpawn;
 	public Transform outsideSpawn;
 	public Transform[] wheels;
+	public Transform leverObject;
+	public GameObject leverInRangeObject;
 	public float wheelSpeed = 1f;
 	public Transform throttleLever;
 	public float leverAngleRange = 90;
@@ -26,10 +28,13 @@ public class Tram : MonoBehaviour
 	public float pitchMinimum = 0.5f;
 	public float pitchMultiplier = 1.5f;
 
+	private bool _isBeingOperated;
 	private float throttleLevel;
 	private float engineSpool;
 	private float currentSpeed;
 	private bool engineOn = false;
+
+	private Player _player;
 
 	public float fuel = 100f;
 	public float fuelMultiplier = 1f;
@@ -38,12 +43,16 @@ public class Tram : MonoBehaviour
 	{
 		exteriorCollider.enabled = false;
 		exterior.GetComponent<Renderer>().enabled = false;
+
+		_player = player;
 	}
 
 	public virtual void PlayerLeave(Player player)
 	{
 		exteriorCollider.enabled = true;
 		exterior.GetComponent<Renderer>().enabled = true;
+
+		_player = null;
 	}
 
 	public virtual void SetThrottle(float newThrottleLevel)
@@ -100,16 +109,44 @@ public class Tram : MonoBehaviour
 		return engineSpool * fuelMultiplier;
 	}
 
+	public bool IsCloseToLever(Vector3 position)
+	{
+		return Vector3.Distance(leverObject.position, position) < 1.5f; 
+	}
+
+	public bool IsBeingOperated()
+	{
+		return _isBeingOperated;
+	}
+
+	public void SetIsBeingOperated(bool isBeingOperated)
+	{
+		_isBeingOperated = isBeingOperated;
+	}
+
 	protected virtual void Update()
 	{
-		// DEBUG MOVE CODE (CONNA PLEASE REPLACE WITH PLAYER INPUTS!)
-		if (Input.GetKey(KeyCode.K))
+		if (!_isBeingOperated && _player != null && IsCloseToLever(_player.transform.position))
 		{
-			SetThrottle(throttleLevel - Time.deltaTime);
+			leverInRangeObject.SetActive(true);
 		}
-		if (Input.GetKey(KeyCode.T) && fuel > 0)
+		else
 		{
-			SetThrottle(throttleLevel + Time.deltaTime);
+			leverInRangeObject.SetActive(false);
+		}
+
+		if (IsBeingOperated())
+		{
+			var v = Input.GetAxis("Vertical");
+
+			if (v < 0f)
+			{
+				SetThrottle(throttleLevel - Time.deltaTime);
+			}
+			else if (v > 0f)
+			{
+				SetThrottle(throttleLevel + Time.deltaTime);
+			}
 		}
 
 		// calculate engine:

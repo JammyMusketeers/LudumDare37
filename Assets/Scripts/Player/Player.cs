@@ -56,10 +56,50 @@ public class Player : MonoBehaviour
 		return _canEnterTram;
 	}
 
+	public void LookAt(Vector3 target)
+	{
+		var currentRotation = transform.eulerAngles;
+
+		transform.LookAt(target);
+
+		var newRotation = transform.eulerAngles;
+
+		newRotation.x = 0f;
+		newRotation.z = 0f;
+			
+		transform.eulerAngles = newRotation;
+
+		controller.SetRotation(transform.rotation);
+	}
+
 	protected virtual void Update()
 	{
+		var tram = GameManager.Instance.CurrentTram;
+
+		if (tram.IsBeingOperated())
+		{
+
+		}
+		
 		if (Input.GetButtonDown("Use"))
 		{
+			if (_isInsideTram)
+			{
+				if (tram.IsCloseToLever(transform.position))
+				{
+					if (!tram.IsBeingOperated())
+					{
+						tram.SetIsBeingOperated(true);
+
+						LookAt(tram.leverInRangeObject.transform.position);
+					}
+					else
+					{
+						tram.SetIsBeingOperated(false);
+					}
+				}
+			}
+
 			if(_hasItem && _canFillEngine)
 			{
 				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
@@ -74,8 +114,6 @@ public class Player : MonoBehaviour
 				_hasItem = false;
 			}
 		}
-
-		var tram = GameManager.Instance.CurrentTram;
 
 		if (_canEnterTram)
 		{

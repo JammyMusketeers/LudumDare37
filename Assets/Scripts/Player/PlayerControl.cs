@@ -75,6 +75,15 @@ public class PlayerControl : MonoBehaviour
 
 	void Update()
 	{
+		if (GameManager.Instance.CurrentTram.IsBeingOperated())
+		{
+			h = 0f;
+			v = 0f;
+			isMoving = false;
+
+			return;
+		}
+
 		h = Input.GetAxis("Horizontal");
 		v = Input.GetAxis("Vertical");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
@@ -136,20 +145,28 @@ public class PlayerControl : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (!_isJumpingOnToTram)
+		if (_isJumpingOnToTram)
 		{
-			anim.SetFloat(hFloat, h);
-			anim.SetFloat(vFloat, v);
+			return;
+		}
+
+		anim.SetFloat(hFloat, h);
+		anim.SetFloat(vFloat, v);
 		
-			GetComponent<Rigidbody>().useGravity = true;
-			anim.SetBool(groundedBool, IsGrounded ());
+		GetComponent<Rigidbody>().useGravity = true;
+		anim.SetBool(groundedBool, IsGrounded ());
 
-			MovementManagement (h, v, run, sprint);
+		if (GameManager.Instance.CurrentTram.IsBeingOperated())
+		{
+			anim.SetFloat(speedFloat, 0f);
+			return;
+		}
 
-			if (!_player.IsInsideTram() && !_player.CanEnterTram())
-			{
-				JumpManagement();
-			}
+		MovementManagement (h, v, run, sprint);
+
+		if (!_player.IsInsideTram() && !_player.CanEnterTram())
+		{
+			JumpManagement();
 		}
 	}
 
@@ -270,6 +287,7 @@ public class PlayerControl : MonoBehaviour
 	public void SetRotation(Quaternion rotation)
 	{
 		GetComponent<Rigidbody>().MoveRotation(rotation);
+		lastDirection = Vector3.zero;
 	}
 
 	private void Repositioning()
