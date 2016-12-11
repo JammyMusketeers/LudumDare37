@@ -17,12 +17,14 @@ public class Player : MonoBehaviour
 	private  float pickupDistance = 1f;
 	public float hunger = 100f;
 	public float health = 100f;
+	public AudioSource playerSound;
 
 	public void CollectLoot(LootItem lootItem)
 	{
 		lootItem.transform.parent = itemSlot.transform;
 		lootItem.transform.localPosition = new Vector3 (0,0,0);
 		currentLootItem = lootItem;
+		playerSound.PlayOneShot(lootItem.collectSound);
 		_hasItem = true;
 	}
 
