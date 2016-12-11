@@ -79,17 +79,17 @@ public class Chunk
 			return;
 		}
 
+		var spawnPoints = _ground.GetSpawnPoints();
+
 		while (randomAmount > 0)
 		{
-			var spawnPoints = _ground.GetSpawnPoints();
-
 			if (spawnPoints.Count == 0)
 			{
 				return;
 			}
 
 			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+			var spawnPoint = spawnPoints[randomSpawnPoint];
 
 			spawnPoints.RemoveAt(randomSpawnPoint);
 
@@ -135,14 +135,14 @@ public class Chunk
 		var spawnPoints = _ground.GetSpawnPoints();
 
 		while (randomAmount > 0)
-			{
+		{
 			if (spawnPoints.Count == 0)
 			{
 				return;
 			}
 
 			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+			var spawnPoint = spawnPoints[randomSpawnPoint];
 
 			spawnPoints.RemoveAt(randomSpawnPoint);
 
@@ -192,7 +192,7 @@ public class Chunk
 			}
 
 			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+			var spawnPoint = spawnPoints[randomSpawnPoint];
 
 			spawnPoints.RemoveAt(randomSpawnPoint);
 
