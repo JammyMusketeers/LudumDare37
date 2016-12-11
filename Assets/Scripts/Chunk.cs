@@ -79,20 +79,20 @@ public class Chunk
 			return;
 		}
 
-		var spawnPoints = _ground.GetSpawnPoints();
-
-		if (spawnPoints.Count == 0)
-		{
-			return;
-		}
-
-		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
-
-		spawnPoints.RemoveAt(randomSpawnPoint);
-
 		while (randomAmount > 0)
 		{
+			var spawnPoints = _ground.GetSpawnPoints();
+
+			if (spawnPoints.Count == 0)
+			{
+				return;
+			}
+
+			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+			spawnPoints.RemoveAt(randomSpawnPoint);
+
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomObject = candidates[randomIndex];
 			var chunkObject = GameObject.Instantiate(randomObject);
@@ -134,18 +134,18 @@ public class Chunk
 
 		var spawnPoints = _ground.GetSpawnPoints();
 
-		if (spawnPoints.Count == 0)
-		{
-			return;
-		}
-
-		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
-
-		spawnPoints.RemoveAt(randomSpawnPoint);
-
 		while (randomAmount > 0)
-		{
+			{
+			if (spawnPoints.Count == 0)
+			{
+				return;
+			}
+
+			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+			spawnPoints.RemoveAt(randomSpawnPoint);
+
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomLoot = candidates[randomIndex];
 			var lootObject = GameObject.Instantiate(randomLoot);
@@ -184,18 +184,18 @@ public class Chunk
 
 		var spawnPoints = _ground.GetSpawnPoints();
 
-		if (spawnPoints.Count == 0)
-		{
-			return;
-		}
-
-		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
-		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
-
-		spawnPoints.RemoveAt(randomSpawnPoint);
-
 		while (randomAmount > 0)
 		{
+			if (spawnPoints.Count == 0)
+			{
+				return;
+			}
+
+			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+			var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+			spawnPoints.RemoveAt(randomSpawnPoint);
+
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomLoot = candidates[randomIndex];
 			var environmentObject = GameObject.Instantiate(randomLoot);
