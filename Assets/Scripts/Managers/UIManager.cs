@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour {
 	public Text fuelConsumpAmount;
 	public float fuelConsumpSigFigs = 1;
 	public RectTransform fuelAmount;
+
+
+
+
 	private float fuelBarFullSize;
 	private Vector2 healthDisplaySize;
 
