@@ -8,6 +8,7 @@ public class LootItem : MonoBehaviour
 	public RarityType rarityType;
 	public int spawnChance = 50;
 	public int fillAmount;
+	public bool canUseAnywhere;
 
 	public void Collect (Player player)
 	{
@@ -21,6 +22,15 @@ public class LootItem : MonoBehaviour
 		if (resourceType == ResourceType.HUNGER)
 		{	
 			player.Feed(fillAmount);
+			Destroy(gameObject);
+		}
+	}
+
+	public void UseEngine (Tram tram)
+	{
+		if (resourceType == ResourceType.FUEL)
+		{	
+			tram.Fill(fillAmount);
 			Destroy(gameObject);
 		}
 	}

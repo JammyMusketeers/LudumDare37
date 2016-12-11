@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour {
 
 	public void SetFuelConsumption(float newValue)
 	{
-		speedAmount.text = "" + newValue;
+		fuelConsumpAmount.text = "" + newValue;
 	}
 
 	public void SetFuel(float newValue)

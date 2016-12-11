@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
 	public Ground groundPrefab;
 	public GameObject railPrefab;
 	public Player player;
+	public UIManager interfaceManager;
 
 	public LootItem[] lootItemPrefabs;
 	public int minLootSpawn = 0;
@@ -174,9 +175,8 @@ public class GameManager : Singleton<GameManager>
 
 		if(Time.time >= _nextHungerDecrease)
 		{
-			player.Hunger -= 1;
+			player.hunger -= 1;
 			_nextHungerDecrease += 3f;
-			Debug.Log(player.Hunger);
 		}
 
 		if (Time.time >= _nextUpdateGround)
@@ -231,5 +231,14 @@ public class GameManager : Singleton<GameManager>
 
 			_nextUpdateGround = Time.time + 1f;
 		}
+		
+		interfaceManager.SetSpeed(CurrentTram.GetSpeedPerSecond());
+		Debug.Log(CurrentTram.GetSpeedPerSecond());
+		interfaceManager.SetDistance(CurrentTram.transform.position.z);
+		interfaceManager.SetHealth(player.health / 100f);
+		interfaceManager.SetHunger(player.hunger /100f);
+		interfaceManager.SetFuelConsumption(CurrentTram.GetFuelConsumption());
+		interfaceManager.SetFuel(CurrentTram.fuel / 100f);
+		
 	}
 }

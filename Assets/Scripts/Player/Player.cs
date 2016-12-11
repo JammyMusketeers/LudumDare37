@@ -8,12 +8,15 @@ public class Player : MonoBehaviour
 	private bool _isInsideTram;
 	private bool _canEnterExitTram;
 	public bool _hasItem;
+	public bool _canFillEngine;
+	private bool _takeDamage;
+	private float _nextTakeDamage;
 	public GameObject itemSlot;
 	private  LootItem currentLootItem;
 	private  GameObject lastTouchedLootItem;
 	private  float pickupDistance = 1f;
-	public float Hunger = 100f;
-	public float Health = 100f;
+	public float hunger = 100f;
+	public float health = 100f;
 
 	public void CollectLoot(LootItem lootItem)
 	{
@@ -25,19 +28,26 @@ public class Player : MonoBehaviour
 
 	public void Feed(float food)
 	{
-		Hunger += food;
-		Hunger = Mathf.Clamp(Hunger,0, 100f);
+		hunger += food;
+		hunger = Mathf.Clamp(hunger,0, 100f);
 	}
 
 	protected virtual void Update()
 	{
 		if (Input.GetButtonDown("Use"))
 		{
-			if(_hasItem)
+			if(_hasItem && _canFillEngine)
+			{
+				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
+				currentLootItem = null;
+				_hasItem = false;
+			}
+			
+			if(_hasItem && currentLootItem.canUseAnywhere)
 			{
 				currentLootItem.SendMessage("Use", this);
 				currentLootItem = null;
-				_hasItem = false;
+				_hasItem = true;
 			}
 
 
@@ -114,6 +124,12 @@ public class Player : MonoBehaviour
 			}
 			
 		}
+
+		if(_takeDamage)
+		{
+			health -= 3f * Time.deltaTime;
+		}
+		
 	}
 
 	protected virtual void OnTriggerEnter(Collider collider)
@@ -129,6 +145,17 @@ public class Player : MonoBehaviour
 		{
 			lastTouchedLootItem = collider.gameObject;
 		}
+
+		if(collider.gameObject.tag == "Hazard")
+		{
+			_takeDamage = true;
+		}
+
+		if(collider == tram.engineCollider)
+		{
+			_canFillEngine = true;
+			_canEnterExitTram = false;
+		}
 		
  	}
 
@@ -139,6 +166,17 @@ public class Player : MonoBehaviour
 		if (_isInsideTram && collider == tram.enterExitTrigger)
 		{
 			_canEnterExitTram = true;
+		}
+
+		if(collider == tram.engineCollider)
+		{
+			_canFillEngine = false;
+			_canEnterExitTram = true;
+		}
+
+		if(collider.gameObject.tag == "Hazard")
+		{
+			_takeDamage = false;
 		}
  	}
 

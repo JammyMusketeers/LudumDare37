@@ -13,6 +13,7 @@ public class Tram : MonoBehaviour
 	public Collider enterExitTrigger;
 	public Collider exteriorCollider;
 	public Collider[] interiorColliders;
+	public Collider engineCollider;
 	public Transform insideSpawn;
 	public Transform outsideSpawn;
 	public Transform[] wheels;
@@ -27,6 +28,9 @@ public class Tram : MonoBehaviour
 	private float throttleLevel;
 	private float engineSpool;
 	private float currentSpeed;
+
+	public float fuel = 100f;
+	public float fuelMultiplier = 1f;
 
 	public virtual void PlayerEnter(Player player)
 	{
@@ -56,14 +60,30 @@ public class Tram : MonoBehaviour
 		}
 	}
 
+	public void Fill(float fuel)
+	{
+		fuel += fuel;
+		fuel = Mathf.Clamp(fuel,0, 100f);
+	}
+
+	public float GetSpeedPerSecond()
+	{
+		return currentSpeed * (1 / Time.deltaTime);
+	}
+
+	public float GetFuelConsumption()
+	{
+		return engineSpool * fuelMultiplier;
+	}
+
 	protected virtual void Update()
 	{
 		// DEBUG MOVE CODE (CONNA PLEASE REPLACE WITH PLAYER INPUTS!)
-		if (Input.GetKey(KeyCode.KeypadMinus))
+		if (Input.GetKey(KeyCode.K))
 		{
 			SetThrottle(throttleLevel - Time.deltaTime);
 		}
-		if (Input.GetKey(KeyCode.KeypadPlus))
+		if (Input.GetKey(KeyCode.T))
 		{
 			SetThrottle(throttleLevel + Time.deltaTime);
 		}
@@ -108,6 +128,8 @@ public class Tram : MonoBehaviour
 		}
 
 		transform.position = position;
+
+		fuel -= engineSpool * fuelMultiplier * Time.deltaTime;
 	}
 
 	protected virtual void Start()
