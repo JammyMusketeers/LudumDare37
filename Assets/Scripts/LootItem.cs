@@ -9,6 +9,8 @@ public class LootItem : MonoBehaviour
 	public int spawnChance = 50;
 	public int fillAmount;
 	public bool canUseAnywhere;
+	public AudioClip collectSound;
+	public AudioClip useSounds;
 
 	public void Collect (Player player)
 	{
