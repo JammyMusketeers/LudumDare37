@@ -42,6 +42,8 @@ public class Tram : MonoBehaviour
 	public float fuel = 100f;
 	public float fuelMultiplier = 1f;
 
+	private bool _initialized;
+
 	public virtual void PlayerEnter(Player player)
 	{
 		exteriorCollider.enabled = false;
@@ -210,6 +212,8 @@ public class Tram : MonoBehaviour
 
 	public void Reset()
 	{
+		Awake();
+
 		_isBeingOperated = false;
 
 		EngineOn(false);
@@ -224,6 +228,11 @@ public class Tram : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		thisAudio = GetComponent<AudioSource>() as AudioSource;
+		if (!_initialized)
+		{
+			thisAudio = GetComponent<AudioSource>() as AudioSource;
+			
+			_initialized = true;
+		}
 	}
 }
