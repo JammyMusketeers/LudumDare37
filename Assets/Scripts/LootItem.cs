@@ -32,6 +32,8 @@ public class LootItem : MonoBehaviour
 			player.Heal(fillAmount);
 			Destroy(gameObject);
 		}
+
+		player.playerSound.PlayOneShot(useSounds);
 	}
 
 	public void UseEngine (Tram tram)
