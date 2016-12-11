@@ -33,6 +33,7 @@ public class GameManager : Singleton<GameManager>
 	public int maxGrassSpawn = 100;
 
 	private float _nextUpdateGround;
+	private float _nextHungerDecrease = 3f;
 	private List<Chunk> _chunks;
 
 	private Action _fadeToBlackCallback;
@@ -169,6 +170,13 @@ public class GameManager : Singleton<GameManager>
 					callback();
 				}
 			}
+		}
+
+		if(Time.time >= _nextHungerDecrease)
+		{
+			player.Hunger -= 1;
+			_nextHungerDecrease += 3f;
+			Debug.Log(player.Hunger);
 		}
 
 		if (Time.time >= _nextUpdateGround)
