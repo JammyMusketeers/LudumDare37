@@ -32,6 +32,12 @@ public class Player : MonoBehaviour
 		hunger = Mathf.Clamp(hunger,0, 100f);
 	}
 
+	public void Heal(float amount)
+	{
+		health += amount;
+		health = Mathf.Clamp(health,0, 100f);
+	}
+
 	protected virtual void Update()
 	{
 		if (Input.GetButtonDown("Use"))
@@ -47,7 +53,7 @@ public class Player : MonoBehaviour
 			{
 				currentLootItem.SendMessage("Use", this);
 				currentLootItem = null;
-				_hasItem = true;
+				_hasItem = false;
 			}
 
 
