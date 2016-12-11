@@ -10,7 +10,7 @@ public class StateManager : Singleton<StateManager>
 
 	protected override void OnSetup()
 	{
-		SetState(new GameState());
+		SetState(new MenuState());
 	}
 
 	protected virtual void Update()

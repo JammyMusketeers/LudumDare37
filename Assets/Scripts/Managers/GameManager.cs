@@ -23,6 +23,9 @@ public class GameManager : Singleton<GameManager>
 	public GameObject gameUI;
 	public GameObject loseUI;
 
+	public Button startGameButton;
+	public Button retryButton;
+
 	public LootItem[] lootItemPrefabs;
 	public int minLootSpawn = 0;
 	public int maxLootSpawn = 4;
@@ -156,6 +159,16 @@ public class GameManager : Singleton<GameManager>
 		
 		CurrentPlayer = player;
 		CurrentTram = tram;
+
+		startGameButton.onClick.AddListener(() =>
+		{
+			StateManager.Instance.SetState(new GameState());
+		});
+
+		retryButton.onClick.AddListener(() =>
+		{
+			StateManager.Instance.SetState(new GameState());
+		});
 	}
 
 	protected virtual void Update()
