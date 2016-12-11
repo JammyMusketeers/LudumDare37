@@ -79,17 +79,25 @@ public class Chunk
 			return;
 		}
 
+		var spawnPoints = _ground.GetSpawnPoints();
+
+		if (spawnPoints.Count == 0)
+		{
+			return;
+		}
+
+		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+		spawnPoints.RemoveAt(randomSpawnPoint);
+
 		while (randomAmount > 0)
 		{
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomObject = candidates[randomIndex];
 			var chunkObject = GameObject.Instantiate(randomObject);
 
-			chunkObject.transform.position = new Vector3(
-				(x * chunkSize) + UnityEngine.Random.Range(0, chunkSize),
-				0f,
-				(z * chunkSize) + UnityEngine.Random.Range(0, chunkSize)
-			);
+			chunkObject.transform.position = spawnPoint.position;
 
 			AddChild(chunkObject.gameObject);
 
@@ -124,17 +132,25 @@ public class Chunk
 			return;
 		}
 
+		var spawnPoints = _ground.GetSpawnPoints();
+
+		if (spawnPoints.Count == 0)
+		{
+			return;
+		}
+
+		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+		spawnPoints.RemoveAt(randomSpawnPoint);
+
 		while (randomAmount > 0)
 		{
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomLoot = candidates[randomIndex];
 			var lootObject = GameObject.Instantiate(randomLoot);
 
-			lootObject.transform.position = new Vector3(
-				(x * chunkSize) + UnityEngine.Random.Range(0, chunkSize),
-				0f,
-				(z * chunkSize) + UnityEngine.Random.Range(0, chunkSize)
-			);
+			lootObject.transform.position = spawnPoint.position;
 
 			AddChild(lootObject.gameObject);
 
@@ -166,17 +182,25 @@ public class Chunk
 			return;
 		}
 
+		var spawnPoints = _ground.GetSpawnPoints();
+
+		if (spawnPoints.Count == 0)
+		{
+			return;
+		}
+
+		var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
+		var spawnPoint = _ground.spawnPoints[randomSpawnPoint];
+
+		spawnPoints.RemoveAt(randomSpawnPoint);
+
 		while (randomAmount > 0)
 		{
 			var randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 			var randomLoot = candidates[randomIndex];
 			var environmentObject = GameObject.Instantiate(randomLoot);
 
-			environmentObject.transform.position = new Vector3(
-				(x * chunkSize) + UnityEngine.Random.Range(-12, 12),
-				0f,
-				(z * chunkSize) + UnityEngine.Random.Range(-12, 12)
-			);
+			environmentObject.transform.position = spawnPoint.position;
 
 			environmentObject.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.Range(0, 360), 0f);
 
