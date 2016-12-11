@@ -10,14 +10,22 @@ public class UIManager : MonoBehaviour {
 	public string distanceUnits = "meters";
 	public float distanceChangeover = 1000f;
 	public string distanceThousands = "km";
-	public Image healthAmount;
+	public RectTransform healthAmount;
 	public RectTransform hungerAmount;
+	private float hungerBarFullSize;
 	public Text fuelConsumpAmount;
 	public RectTransform fuelAmount;
+	private float fuelBarFullSize;
+
+	void Awake()
+	{
+		hungerBarFullSize = hungerAmount.rect.width;
+		fuelBarFullSize = fuelAmount.rect.width;
+	}
 
 	void Update()
 	{
-		SetDistance(Time.timeSinceLevelLoad);
+		//SetDistance(Time.timeSinceLevelLoad);
 	}
 
 	public void SetSpeed(float newValue)
@@ -43,5 +51,25 @@ public class UIManager : MonoBehaviour {
 			// show meters
 			distanceAmount.text = meters +" "+ distanceUnits;
 		}
+	}
+
+	public void SetHealth(float newValue)
+	{
+		healthAmount.sizeDelta = new Vector2(newValue, newValue);
+	}
+
+	public void SetHunger(float newValue)
+	{
+		hungerAmount.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newValue * hungerBarFullSize);
+	}
+
+	public void SetFuelConsumption(float newValue)
+	{
+		speedAmount.text = "" + newValue;
+	}
+
+	public void SetFuel(float newValue)
+	{
+		hungerAmount.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newValue * fuelBarFullSize);
 	}
 }
