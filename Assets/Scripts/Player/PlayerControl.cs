@@ -75,6 +75,11 @@ public class PlayerControl : MonoBehaviour
 
 	void Update()
 	{
+		if (!StateManager.Instance.Is<GameState>())
+		{
+			return;
+		}
+
 		if (GameManager.Instance.CurrentTram.IsBeingOperated())
 		{
 			h = 0f;
@@ -143,8 +148,28 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
+	public void Reset()
+	{
+		h = 0f;
+		v = 0f;
+		speed = 0f;
+		lastSpeed = 0f;
+		lastDirection = Vector3.zero;
+		isMoving = false;
+
+		anim.SetFloat(hFloat, h);
+		anim.SetFloat(vFloat, v);
+		anim.SetFloat(speedFloat, speed);
+		anim.SetBool(jumpBool, false);
+	}
+
 	void FixedUpdate()
 	{
+		if (!StateManager.Instance.Is<GameState>())
+		{
+			return;
+		}
+
 		if (_isJumpingOnToTram)
 		{
 			return;

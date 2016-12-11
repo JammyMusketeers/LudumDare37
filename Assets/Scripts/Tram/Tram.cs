@@ -201,9 +201,13 @@ public class Tram : MonoBehaviour
 		}
 	}
 
+	public void Reset()
+	{
+		_isBeingOperated = false;
+	}
+
 	protected virtual void Start()
 	{
-		GameManager.Instance.CurrentTram = this;
-		SetThrottle(0);
+		
 	}
 }

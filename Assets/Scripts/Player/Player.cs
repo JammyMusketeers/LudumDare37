@@ -56,6 +56,18 @@ public class Player : MonoBehaviour
 		return _canEnterTram;
 	}
 
+	public void Reset()
+	{
+		controller.Reset();
+
+		currentLootItem = null;
+
+		_hasItem = false;
+
+		hunger = 100f;
+		health = 100f;
+	}
+
 	public void LookAt(Vector3 target)
 	{
 		var currentRotation = transform.eulerAngles;
@@ -72,15 +84,23 @@ public class Player : MonoBehaviour
 		controller.SetRotation(transform.rotation);
 	}
 
+	public void PutInsideTram(Tram tram)
+	{
+		transform.position = tram.insideSpawn.position;
+		transform.parent = tram.transform;
+		
+		_isInsideTram = true;
+	}
+
 	protected virtual void Update()
 	{
+		if (!StateManager.Instance.Is<GameState>())
+		{
+			return;
+		}
+
 		var tram = GameManager.Instance.CurrentTram;
 
-		if (tram.IsBeingOperated())
-		{
-
-		}
-		
 		if (Input.GetButtonDown("Use"))
 		{
 			if (_isInsideTram)

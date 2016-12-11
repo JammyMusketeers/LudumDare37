@@ -7,15 +7,21 @@ using System.Collections.Generic;
 public class GameManager : Singleton<GameManager>
 {
 	public Tram CurrentTram { get; set; }
+	public Player CurrentPlayer { get; set; }
 
 	public IsometricCamera camera;
+	public Player player;
+	public Tram tram;
 	public Image fadeToBlack;
 	public int chunkSize = 24;
 	public int chunkDistance = 2;
 	public Ground groundPrefab;
 	public GameObject railPrefab;
-	public Player player;
 	public UIManager interfaceManager;
+
+	public GameObject menuUI;
+	public GameObject gameUI;
+	public GameObject loseUI;
 
 	public LootItem[] lootItemPrefabs;
 	public int minLootSpawn = 0;
@@ -32,9 +38,8 @@ public class GameManager : Singleton<GameManager>
 	public GrassObject[] grassObjectPrefabs;
 	public int minGrassSpawn = 40;
 	public int maxGrassSpawn = 100;
-
+	
 	private float _nextUpdateGround;
-	private float _nextHungerDecrease = 3f;
 	private List<Chunk> _chunks;
 
 	private Action _fadeToBlackCallback;
@@ -130,22 +135,27 @@ public class GameManager : Singleton<GameManager>
 		}
 	}
 
+	public void ClearChunks()
+	{
+		if (_chunks == null)
+		{
+			return;
+		}
+
+		foreach (var chunk in _chunks)
+		{
+			chunk.RemoveChildren();
+		}
+
+		_chunks.Clear();
+	}
+
 	protected override void OnSetup()
 	{
 		_chunks = new List<Chunk>();
-
-		for (int x = -chunkDistance; x <= chunkDistance; x++)
-		{
-			for (int z = -chunkDistance; z <= chunkDistance; z++)
-			{
-				var chunk = GetChunkAt(x, z);
-
-				if (chunk == null)
-				{
-					AddChunk(x, z, true);
-				}
-			}
-		}
+		
+		CurrentPlayer = player;
+		CurrentTram = tram;
 	}
 
 	protected virtual void Update()
@@ -172,15 +182,9 @@ public class GameManager : Singleton<GameManager>
 			}
 		}
 
-		if(Time.time >= _nextHungerDecrease)
+		if (CurrentPlayer != null && CurrentTram != null && Time.time >= _nextUpdateGround)
 		{
-			player.hunger -= 1;
-			_nextHungerDecrease += 3f;
-		}
-
-		if (Time.time >= _nextUpdateGround)
-		{
-			var playerPosition = player.transform.position;
+			var playerPosition = CurrentPlayer.transform.position;
 			var tramPosition = CurrentTram.transform.position;
 			var playerChunkX = Mathf.FloorToInt(playerPosition.x / chunkSize);
 			var playerChunkZ = Mathf.FloorToInt(playerPosition.z / chunkSize);
@@ -238,12 +242,5 @@ public class GameManager : Singleton<GameManager>
 
 			_nextUpdateGround = Time.time + 1f;
 		}
-
-		interfaceManager.SetSpeed(CurrentTram.GetSpeedPerSecond());
-		interfaceManager.SetDistance(CurrentTram.transform.position.z);
-		interfaceManager.SetHealth(player.health / 100f);
-		interfaceManager.SetHunger(player.hunger /100f);
-		interfaceManager.SetFuelConsumption(CurrentTram.GetFuelConsumption());
-		interfaceManager.SetFuel(CurrentTram.fuel / 100f);
 	}
 }
