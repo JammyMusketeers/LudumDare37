@@ -54,6 +54,22 @@ public class Player : MonoBehaviour
 		return _canEnterTram;
 	}
 
+	public void LookAt(Vector3 target)
+	{
+		var currentRotation = transform.eulerAngles;
+
+		transform.LookAt(target);
+
+		var newRotation = transform.eulerAngles;
+
+		newRotation.x = 0f;
+		newRotation.z = 0f;
+			
+		transform.eulerAngles = newRotation;
+
+		controller.SetRotation(transform.rotation);
+	}
+
 	protected virtual void Update()
 	{
 		var tram = GameManager.Instance.CurrentTram;
@@ -67,14 +83,13 @@ public class Player : MonoBehaviour
 		{
 			if (_isInsideTram)
 			{
-				Debug.Log("yes");
-
 				if (tram.IsCloseToLever(transform.position))
 				{
-					Debug.Log("ay");
 					if (!tram.IsBeingOperated())
 					{
 						tram.SetIsBeingOperated(true);
+
+						LookAt(tram.leverInRangeObject.transform.position);
 					}
 					else
 					{
