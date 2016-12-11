@@ -35,7 +35,7 @@ public class PlayerControl : MonoBehaviour
 	private float h;
 	private float v;
 
-	private bool aim;
+//	private bool aim;
 
 	private bool run;
 	private bool sprint;
@@ -74,17 +74,17 @@ public class PlayerControl : MonoBehaviour
 		//if(Input.GetButtonDown ("Fly"))
 		//	fly = !fly;
 
-		aim = Input.GetButton("Aim");
+		//aim = Input.GetButton("Aim");
 		h = Input.GetAxis("Horizontal");
 		v = Input.GetAxis("Vertical");
-		run = Input.GetButton ("Run");
-		sprint = Input.GetButton ("Sprint");
+		//run = Input.GetButton ("Run");
+		//sprint = Input.GetButton ("Sprint");
 		isMoving = Mathf.Abs(h) > 0.1 || Mathf.Abs(v) > 0.1;
 	}
 
 	void FixedUpdate()
 	{
-		anim.SetBool (aimBool, IsAiming());
+		//anim.SetBool (aimBool, IsAiming());
 		anim.SetFloat(hFloat, h);
 		anim.SetFloat(vFloat, v);
 		
@@ -120,7 +120,7 @@ public class PlayerControl : MonoBehaviour
 		if (Input.GetButtonDown ("Jump"))
 		{
 			anim.SetBool(jumpBool, true);
-			if(speed > 0 && timeToNextJump <= 0 && !aim)
+			if(speed > 0 && timeToNextJump <= 0 )
 			{
 				GetComponent<Rigidbody>().velocity = new Vector3(0, jumpHeight, 0);
 				timeToNextJump = jumpCooldown;
@@ -170,18 +170,11 @@ public class PlayerControl : MonoBehaviour
 
 		float finalTurnSmoothing;
 
-		if(IsAiming())
-		{
-			targetDirection = forward;
-			finalTurnSmoothing = aimTurnSmoothing;
-		}
-		else
-		{
-			targetDirection = forward * vertical + right * horizontal;
-			finalTurnSmoothing = turnSmoothing;
-		}
+		targetDirection = forward * vertical + right * horizontal;
+		finalTurnSmoothing = turnSmoothing;
 
-		if((isMoving && targetDirection != Vector3.zero) || IsAiming())
+
+		if((isMoving && targetDirection != Vector3.zero))
 		{
 			Quaternion targetRotation = Quaternion.LookRotation (targetDirection, Vector3.up);
 			// fly
@@ -228,13 +221,8 @@ public class PlayerControl : MonoBehaviour
 		return fly;
 	}
 
-	public bool IsAiming()
-	{
-		return aim && !fly;
-	}
-
 	public bool isSprinting()
 	{
-		return sprint && !aim && (isMoving);
+		return sprint && (isMoving);
 	}
 }

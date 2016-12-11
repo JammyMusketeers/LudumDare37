@@ -74,17 +74,6 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
 		cam.rotation = aimRotation;
 
-		if(playerControl.IsAiming())
-		{
-			targetPivotOffset = aimPivotOffset;
-			targetCamOffset = aimCamOffset;
-		}
-		else
-		{
-			targetPivotOffset = pivotOffset;
-			targetCamOffset = camOffset;
-		}
-
 		if(playerControl.isSprinting())
 		{
 			targetFOV = sprintFOV;
@@ -158,15 +147,5 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 			}
 		}
 		return true;
-	}
-
-	// Crosshair
-	void OnGUI () 
-	{
-		float mag = Mathf.Abs ((aimPivotOffset - smoothPivotOffset).magnitude);
-		if (playerControl.IsAiming() &&  mag < 0.05f)
-			GUI.DrawTexture(new Rect(Screen.width/2-(crosshair.width*0.5f), 
-			                         Screen.height/2-(crosshair.height*0.5f), 
-			                         crosshair.width, crosshair.height), crosshair);
 	}
 }

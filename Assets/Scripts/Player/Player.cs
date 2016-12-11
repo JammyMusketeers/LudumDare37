@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
 	protected virtual void Update()
 	{
-		if (Input.GetKeyUp(KeyCode.E))
+		if (Input.GetButtonDown("Use"))
 		{
 			if (_canEnterExitTram)
 			{

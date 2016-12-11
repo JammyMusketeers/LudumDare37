@@ -42,6 +42,11 @@ ModelImporter:
     100068: wheels
     100070: wheels01
     100072: Train
+    100074: base_block
+    100076: COL_ext
+    100078: COL_int
+    100080: engineblock
+    100082: exhaust
     400000: bed
     400002: chair
     400004: DriveLever
@@ -79,6 +84,11 @@ ModelImporter:
     400068: wheels
     400070: wheels01
     400072: Train
+    400074: base_block
+    400076: COL_ext
+    400078: COL_int
+    400080: engineblock
+    400082: exhaust
     2300000: bed
     2300002: chair
     2300004: DriveLever
@@ -112,6 +122,11 @@ ModelImporter:
     2300060: sleeper23
     2300062: wheels
     2300064: wheels01
+    2300066: base_block
+    2300068: COL_ext
+    2300070: COL_int
+    2300072: engineblock
+    2300074: exhaust
     3300000: bed
     3300002: chair
     3300004: DriveLever
@@ -145,6 +160,11 @@ ModelImporter:
     3300060: sleeper23
     3300062: wheels
     3300064: wheels01
+    3300066: base_block
+    3300068: COL_ext
+    3300070: COL_int
+    3300072: engineblock
+    3300074: exhaust
     4300000: rail_R
     4300002: sleeper00
     4300004: sleeper01
@@ -178,6 +198,11 @@ ModelImporter:
     4300060: DriveLever
     4300062: wheels
     4300064: wheels01
+    4300066: base_block
+    4300068: engineblock
+    4300070: exhaust
+    4300072: COL_int
+    4300074: COL_ext
   materials:
     importMaterials: 1
     materialName: 0
