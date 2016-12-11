@@ -62,9 +62,9 @@ public class Tram : MonoBehaviour
 		}
 	}
 
-	public void Fill(float fuel)
+	public void Fill(float amount)
 	{
-		fuel += fuel;
+		fuel += amount;
 		fuel = Mathf.Clamp(fuel,0, 100f);
 	}
 

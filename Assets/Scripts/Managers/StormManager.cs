@@ -40,21 +40,21 @@ public class StormManager : Singleton<GameManager> {
 
 			}
 
-			if(distance < 900f && distance >= 500f)
+			if(distance <= 900f && distance >= 500f)
 			{
 				stormLevel0 = false;
 				stormLevel1 = true;
 				stormLevel2 = false;
 			}
 
-			if(distance < 500f && distance >= 200f)
+			if(distance <= 500f && distance >= 200f)
 			{
 				stormLevel1 = false;
 				stormLevel2 = true;
 				stormLevel3 = false;
 			}
 
-			if(distance < 200f)
+			if(distance <= 200f)
 			{
 				stormLevel2 = false;
 				stormLevel3 = true;
@@ -71,7 +71,7 @@ public class StormManager : Singleton<GameManager> {
 				playerControl.stormSpeedDecay = 0.9f;
 				s1.enabled = true;
 				s2.enabled = false;
-
+			}
 			if (stormLevel2)
 			{
 				playerControl.stormSpeedDecay = 0.7f;
@@ -91,5 +91,5 @@ public class StormManager : Singleton<GameManager> {
 		}
 	
 	}
-}
+
 }
