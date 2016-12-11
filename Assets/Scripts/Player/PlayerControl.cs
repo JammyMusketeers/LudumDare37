@@ -208,6 +208,8 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
 
+	private float lastSpeed;
+
 	void MovementManagement(float horizontal, float vertical, bool running, bool sprinting)
 	{
 		Rotating(horizontal, vertical);
@@ -234,12 +236,15 @@ public class PlayerControl : MonoBehaviour
 				}
 			}
 
+			lastSpeed = speed;
+
 			anim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
 		}
 		else
 		{
 			speed = 0f;
-			anim.SetFloat(speedFloat, 0f);
+			lastSpeed = Mathf.Lerp(lastSpeed, 0f, Time.deltaTime * 8f);
+			anim.SetFloat(speedFloat, lastSpeed);
 		}
 
 		GetComponent<Rigidbody>().AddForce(Vector3.forward*speed);
