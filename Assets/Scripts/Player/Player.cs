@@ -19,6 +19,14 @@ public class Player : MonoBehaviour
 	public float health = 100f;
 	public AudioSource playerSound;
 
+	private bool _isHidden;
+
+	public void SetHidden(bool isHidden)
+	{
+		_isHidden = isHidden;
+		gameObject.SetActive(!isHidden);
+	}
+
 	public void CollectLoot(LootItem lootItem)
 	{
 		lootItem.transform.parent = itemSlot.transform;
@@ -43,7 +51,12 @@ public class Player : MonoBehaviour
 	public void Hit(float damage)
 	{
 		health -= damage;
-		health = Mathf.Clamp(health,0, 100f);
+		health = Mathf.Clamp(health, 0, 100f);
+
+		if (health == 0f)
+		{
+			GameManager.Instance.QueueDeath();
+		}
 	}
 
 	public bool IsInsideTram()
@@ -62,6 +75,8 @@ public class Player : MonoBehaviour
 
 		currentLootItem = null;
 
+		_canFillEngine = false;
+		_canEnterTram = false;
 		_hasItem = false;
 
 		hunger = 100f;
@@ -86,15 +101,18 @@ public class Player : MonoBehaviour
 
 	public void PutInsideTram(Tram tram)
 	{
-		transform.position = tram.insideSpawn.position;
 		transform.parent = tram.transform;
+		transform.position = tram.insideSpawn.position;
+
+		controller.SetPosition(transform.position);
+		controller.SetRotation(transform.rotation);
 		
 		_isInsideTram = true;
 	}
 
 	protected virtual void Update()
 	{
-		if (!StateManager.Instance.Is<GameState>())
+		if (_isHidden || !StateManager.Instance.Is<GameState>())
 		{
 			return;
 		}
@@ -185,15 +203,19 @@ public class Player : MonoBehaviour
 			
 		}
 
-		if(_takeDamage)
+		if (_takeDamage)
 		{
-			health -= 3f * Time.deltaTime;
+			Hit(5f * Time.deltaTime);
 		}
-		
 	}
 
 	protected virtual void OnTriggerEnter(Collider collider)
 	{
+		if (_isHidden)
+		{
+			return;
+		}
+
 		var tram = GameManager.Instance.CurrentTram;
 
 		if (collider == tram.entryTrigger)
@@ -232,11 +254,15 @@ public class Player : MonoBehaviour
 		{
 			_canFillEngine = true;
 		}
-		
  	}
 
 	protected virtual void OnTriggerExit(Collider collider)
 	{
+		if (_isHidden)
+		{
+			return;
+		}
+
 		var tram = GameManager.Instance.CurrentTram;
 
 		if (collider == tram.entryTrigger)

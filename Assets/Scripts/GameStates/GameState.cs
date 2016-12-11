@@ -8,23 +8,8 @@ public class GameState : BaseState
 	public override void OnLoad(BaseState lastState)
 	{
 		GameManager.Instance.gameUI.SetActive(true);
-
-		/*
-		var chunkDistance = GameManager.Instance.chunkDistance;
-
-		for (int x = -chunkDistance; x <= chunkDistance; x++)
-		{
-			for (int z = -chunkDistance; z <= chunkDistance; z++)
-			{
-				var chunk = GameManager.Instance.GetChunkAt(x, z);
-
-				if (chunk == null)
-				{
-					GameManager.Instance.AddChunk(x, z, true);
-				}
-			}
-		}
-		*/
+		GameManager.Instance.CurrentPlayer.SetHidden(false);
+		GameManager.Instance.CurrentTram.PlayerEnter(GameManager.Instance.CurrentPlayer);
 	}
 
 	public override void OnUnload(BaseState nextState)

@@ -15,6 +15,11 @@ public class IsometricCamera : MonoBehaviour
 	private Quaternion? _lastRotation;
 	public float movingSpeed;
 
+	public void Reset()
+	{
+		_lastPosition = null;
+	}
+
 	protected virtual void Awake()
 	{
 		_camera = GetComponent<Camera>() as Camera;
