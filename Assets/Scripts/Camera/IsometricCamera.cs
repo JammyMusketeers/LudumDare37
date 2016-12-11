@@ -7,8 +7,18 @@ public class IsometricCamera : MonoBehaviour
 	public Vector3 distance = new Vector3(10f, 10f, 10f);
 	public float angle = 45f;
 
+	public float minViewSize = 6f;
+	public float speedViewMultiplier = 100f;
+
+	private Camera _camera;
 	private Vector3? _lastPosition;
 	private Quaternion? _lastRotation;
+	public float movingSpeed;
+
+	protected virtual void Awake()
+	{
+		_camera = GetComponent<Camera>() as Camera;
+	}
 
 	protected virtual void Update()
 	{
@@ -18,6 +28,15 @@ public class IsometricCamera : MonoBehaviour
 		var rotation = transform.eulerAngles;
 			rotation.y = angle;
 		transform.eulerAngles = rotation;
+
+		// speed multiplier
+		if (_lastPosition != null)
+		{
+			movingSpeed = Vector3.Distance(transform.position, _lastPosition.Value);
+			movingSpeed *= movingSpeed;
+			_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, minViewSize + (speedViewMultiplier * movingSpeed), Time.deltaTime);
+		}
+		_lastPosition = transform.position;
 
 		/*
 		if (_lastPosition == null)

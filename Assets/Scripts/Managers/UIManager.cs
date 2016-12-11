@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour {
 	public float fuelConsumpSigFigs = 1;
 	public RectTransform fuelAmount;
 
-
+	public GameObject inventoryPanel;
 
 
 	private float fuelBarFullSize;
@@ -84,5 +84,10 @@ public class UIManager : MonoBehaviour {
 	public void SetFuel(float newValue)
 	{
 		fuelAmount.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newValue * fuelBarFullSize);
+	}
+
+	public void ShowInventoryPanel(bool toggle)
+	{
+		inventoryPanel.SetActive(toggle);
 	}
 }
