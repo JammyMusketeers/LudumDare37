@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
 
 		_canFillEngine = false;
 		_canEnterTram = false;
+		_takeDamage = false;
 		_hasItem = false;
 
 		hunger = 100f;
