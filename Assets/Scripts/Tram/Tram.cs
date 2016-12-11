@@ -25,6 +25,8 @@ public class Tram : MonoBehaviour
 	public float leverAngleRange = 90;
 	public float leverAngleOffset = 45;
 	public AudioSource engineSoundEmitter;
+	public AudioClip soundStartEngine;
+	public AudioClip soundStopEngine;
 	public float pitchMinimum = 0.5f;
 	public float pitchMultiplier = 1.5f;
 
@@ -35,6 +37,7 @@ public class Tram : MonoBehaviour
 	private bool engineOn = false;
 
 	private Player _player;
+	private AudioSource thisAudio;
 
 	public float fuel = 100f;
 	public float fuelMultiplier = 1f;
@@ -80,12 +83,16 @@ public class Tram : MonoBehaviour
 		{
 			engineOn = true;
 			engineSoundEmitter.Play();
+			if (soundStartEngine != null)
+				thisAudio.PlayOneShot(soundStartEngine);
 		} 
 		else
 		{
 			engineOn = false;
 			engineSpool = 0;
 			engineSoundEmitter.Stop();
+			if (soundStopEngine != null)
+				thisAudio.PlayOneShot(soundStopEngine);
 		}
 	}
 
@@ -209,5 +216,10 @@ public class Tram : MonoBehaviour
 	protected virtual void Start()
 	{
 		
+	}
+
+	protected virtual void Awake()
+	{
+		thisAudio = GetComponent<AudioSource>() as AudioSource;
 	}
 }
