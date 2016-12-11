@@ -8,12 +8,15 @@ public class InventoryBox : MonoBehaviour {
 	public LootItem[] contents;
 	public Image[] contentIcons;
 
+	public UIManager ui;
+
 	private bool open;
 
 	public void Open() {
 		if (!open)
 		{
 			open = true;
+			ui.ShowInventoryPanel(true);
 		}
 		else
 		{
@@ -25,6 +28,7 @@ public class InventoryBox : MonoBehaviour {
 		if (open)
 		{
 			open = false;
+			ui.ShowInventoryPanel(true);
 		}
 		else
 		{
