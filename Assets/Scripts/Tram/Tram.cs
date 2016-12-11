@@ -68,7 +68,7 @@ public class Tram : MonoBehaviour
 
 	public float GetSpeedPerSecond()
 	{
-		return currentSpeed * (1 / Time.deltaTime);
+		return currentSpeed;
 	}
 
 	public float GetFuelConsumption()
