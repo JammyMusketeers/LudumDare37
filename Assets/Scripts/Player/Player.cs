@@ -38,6 +38,12 @@ public class Player : MonoBehaviour
 		health = Mathf.Clamp(health,0, 100f);
 	}
 
+	public void Hit(float damage)
+	{
+		health -= damage;
+		health = Mathf.Clamp(health,0, 100f);
+	}
+
 	protected virtual void Update()
 	{
 		if (Input.GetButtonDown("Use"))
@@ -155,6 +161,11 @@ public class Player : MonoBehaviour
 		if(collider.gameObject.tag == "Hazard")
 		{
 			_takeDamage = true;
+		}
+
+		if(collider.gameObject.tag == "OneHit")
+		{
+			collider.gameObject.SendMessage("HitPlayer", this);
 		}
 
 		if(collider == tram.engineCollider)

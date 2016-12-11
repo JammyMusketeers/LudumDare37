@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour
 	public float runSpeed = 1.0f;
 	public float sprintSpeed = 2.0f;
 	public float flySpeed = 4.0f;
+	public float stormSpeedDecay;
 
 	public float turnSmoothing = 3.0f;
 	public float aimTurnSmoothing = 15.0f;
@@ -136,15 +137,15 @@ public class PlayerControl : MonoBehaviour
 		{
 			if(sprinting)
 			{
-				speed = sprintSpeed;
+				speed = sprintSpeed - stormSpeedDecay;
 			}
 			else if (running)
 			{
-				speed = runSpeed;
+				speed = runSpeed - stormSpeedDecay;
 			}
 			else
 			{
-				speed = walkSpeed;
+				speed = walkSpeed - stormSpeedDecay;
 			}
 
 			anim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
