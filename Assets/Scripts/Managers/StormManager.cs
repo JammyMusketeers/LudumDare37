@@ -82,7 +82,7 @@ public class StormManager : Singleton<GameManager> {
 			if (stormLevel3)
 			{
 				playerControl.stormSpeedDecay = 0.5f;
-					s3.enabled = true;
+				s3.enabled = true;
 			}
 
 			Debug.Log("Storm Distance = " + distance);
