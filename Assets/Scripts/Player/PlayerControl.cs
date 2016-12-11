@@ -197,17 +197,24 @@ public class PlayerControl : MonoBehaviour
 
 		if(isMoving)
 		{
-			if(sprinting)
+			if (_player.IsInsideTram())
 			{
-				speed = sprintSpeed * stormSpeedDecay;
-			}
-			else if (running)
-			{
-				speed = runSpeed * stormSpeedDecay;
+				speed = walkSpeed * 0.5f;
 			}
 			else
 			{
-				speed = walkSpeed * stormSpeedDecay;
+				if(sprinting)
+				{
+					speed = sprintSpeed * stormSpeedDecay;
+				}
+				else if (running)
+				{
+					speed = runSpeed * stormSpeedDecay;
+				}
+				else
+				{
+					speed = walkSpeed * stormSpeedDecay;
+				}
 			}
 
 			anim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
