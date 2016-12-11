@@ -29,6 +29,7 @@ public class Tram : MonoBehaviour
 	private float throttleLevel;
 	private float engineSpool;
 	private float currentSpeed;
+	private bool engineOn = false;
 
 	public float fuel = 100f;
 	public float fuelMultiplier = 1f;
@@ -54,6 +55,8 @@ public class Tram : MonoBehaviour
 
 		if (throttleLevel < 0)
 			throttleLevel = 0;
+		if (throttleLevel > 0 && !engineOn)
+			EngineOn(true);
 
 		if (throttleLever != null) 
 		{
@@ -62,10 +65,29 @@ public class Tram : MonoBehaviour
 		}
 	}
 
+	public void EngineOn(bool On)
+	{
+		if (On)
+		{
+			engineOn = true;
+			engineSoundEmitter.Play();
+		} 
+		else
+		{
+			engineOn = false;
+			engineSpool = 0;
+			engineSoundEmitter.Stop();
+		}
+	}
+
 	public void Fill(float amount)
 	{
 		fuel += amount;
 		fuel = Mathf.Clamp(fuel,0, 100f);
+		if(fuel > 0)
+		{
+			EngineOn(true);
+		}
 	}
 
 	public float GetSpeedPerSecond()
@@ -91,11 +113,13 @@ public class Tram : MonoBehaviour
 		}
 
 		// calculate engine:
-
-		engineSpool = Mathf.Lerp(engineSpool, throttleLevel, engineSpoolRate * Time.deltaTime);
-
-		if (engineSoundEmitter != null)
-			engineSoundEmitter.pitch = pitchMinimum + (engineSpool * pitchMultiplier);
+		if(engineOn)
+		{
+			engineSpool = Mathf.Lerp(engineSpool, throttleLevel, engineSpoolRate * Time.deltaTime);
+	
+			if (engineSoundEmitter != null)
+				engineSoundEmitter.pitch = pitchMinimum + (engineSpool * pitchMultiplier);
+		} 
 
 		if (throttleLevel > 0)
 		{
@@ -134,9 +158,9 @@ public class Tram : MonoBehaviour
 		fuel -= engineSpool * fuelMultiplier * Time.deltaTime;
 		fuel = Mathf.Clamp(fuel,0f,100f);
 
-		if(fuel <= 0)
+		if(fuel <= 0 && engineOn)
 		{
-			throttleLevel = 0;
+			EngineOn(false);
 		}
 	}
 
