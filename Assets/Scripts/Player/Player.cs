@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
 				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
 				currentLootItem = null;
 				_hasItem = false;
+				playerSound.PlayOneShot(currentLootItem.useSounds);
 			}
 			
 			if(_hasItem && currentLootItem.canUseAnywhere)
@@ -112,6 +113,7 @@ public class Player : MonoBehaviour
 				currentLootItem.SendMessage("Use", this);
 				currentLootItem = null;
 				_hasItem = false;
+				playerSound.PlayOneShot(currentLootItem.useSounds);
 			}
 		}
 
