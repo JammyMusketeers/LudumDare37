@@ -4,8 +4,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class StormManager : Singleton<GameManager> {
-
+public class StormManager : Singleton<StormManager>
+{
 	public PlayerControl playerControl;
 	public Player player;
 	public GameObject storm;
@@ -18,43 +18,68 @@ public class StormManager : Singleton<GameManager> {
 	private bool stormLevel2 = false;
 	private bool stormLevel3 = false;
 	private float _nextStormChecker;
+	private Vector3 _startPosition;
+	private bool _isStormActive;
 
+	public void ResetStorm(Vector3 origin)
+	{
+		storm.transform.position = new Vector3(origin.x, origin.y, origin.z - 1000f);
 
+		var s1 = stormEffect1.emission;
+		var s2 = stormEffect2.emission;
+		var s3 = stormEffect3.emission;
+
+		s1.enabled = false;
+		s2.enabled = false;
+		s3.enabled = false;
+
+		stormLevel0 = true;
+		stormLevel1 = false;
+		stormLevel2 = false;
+		stormLevel3 = false;
+	}
 	
-	// Update is called once per frame
-	void Update () {
+	public void SetStormActive(bool isActive)
+	{
+		_isStormActive = isActive;
+	}
 
-		//Check how far Storm is
-		if(Time.time >= _nextStormChecker)
+	protected virtual void Update()
+	{
+		if (!_isStormActive)
 		{
+			return;
+		}
 
+		if (Time.time >= _nextStormChecker)
+		{
 			var distance = Vector3.Distance(storm.transform.position, player.transform.position);
 			var s1 = stormEffect1.emission;
 			var s2 = stormEffect2.emission;
 			var s3 = stormEffect3.emission;
 			
-			if(distance >= 900)
+			if (distance >= 900)
 			{
 				stormLevel0 = true;
 				stormLevel1 = false;
 
 			}
 
-			if(distance <= 900f && distance >= 500f)
+			if (distance <= 900f && distance >= 500f)
 			{
 				stormLevel0 = false;
 				stormLevel1 = true;
 				stormLevel2 = false;
 			}
 
-			if(distance <= 500f && distance >= 200f)
+			if (distance <= 500f && distance >= 200f)
 			{
 				stormLevel1 = false;
 				stormLevel2 = true;
 				stormLevel3 = false;
 			}
 
-			if(distance <= 200f)
+			if (distance <= 200f)
 			{
 				stormLevel2 = false;
 				stormLevel3 = true;
@@ -72,6 +97,7 @@ public class StormManager : Singleton<GameManager> {
 				s1.enabled = true;
 				s2.enabled = false;
 			}
+
 			if (stormLevel2)
 			{
 				playerControl.stormSpeedDecay = 0.7f;
@@ -85,11 +111,7 @@ public class StormManager : Singleton<GameManager> {
 				s3.enabled = true;
 			}
 
-			Debug.Log("Storm Distance = " + distance);
 			_nextStormChecker = Time.time + 1f;
-
 		}
-	
 	}
-
 }

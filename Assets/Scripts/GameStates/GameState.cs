@@ -10,6 +10,9 @@ public class GameState : BaseState
 		GameManager.Instance.gameUI.SetActive(true);
 		GameManager.Instance.CurrentPlayer.SetHidden(false);
 		GameManager.Instance.CurrentTram.PlayerEnter(GameManager.Instance.CurrentPlayer);
+
+		StormManager.Instance.ResetStorm(GameManager.Instance.CurrentTram.transform.position);
+		StormManager.Instance.SetStormActive(true);
 	}
 
 	public override void OnUnload(BaseState nextState)
