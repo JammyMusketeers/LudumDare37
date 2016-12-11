@@ -5,6 +5,7 @@ public class MenuState : BaseState
 {
 	public override void OnLoad(BaseState lastState)
 	{
+		GameManager.Instance.ClearChunks();
 		GameManager.Instance.camera.Reset();
 		GameManager.Instance.menuUI.SetActive(true);
 
@@ -36,6 +37,5 @@ public class MenuState : BaseState
 	public override void OnUnload(BaseState nextState)
 	{
 		GameManager.Instance.menuUI.SetActive(false);
-		GameManager.Instance.ClearChunks();
 	}
 }

@@ -15,7 +15,6 @@ public class GameState : BaseState
 	public override void OnUnload(BaseState nextState)
 	{
 		GameManager.Instance.gameUI.SetActive(false);
-		GameManager.Instance.ClearChunks();
 	}
 
 	public override void Update()
