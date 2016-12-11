@@ -91,7 +91,6 @@ public class GameManager : Singleton<GameManager>
 
 		chunk.AddGround();
 		chunk.AddGrass();
-		
 
 		if (addLoot && x != 0)
 		{
@@ -212,20 +211,28 @@ public class GameManager : Singleton<GameManager>
 			{
 				var chunk = _chunks[i];
 				var clearTime = chunk.GetClearTime();
+				var isPlayerInRange = chunk.IsInRange(playerChunkX, playerChunkZ, chunkDistance);
+				var isTramInRange = chunk.IsInRange(tramChunkX, tramChunkZ, chunkDistance);
 
 				if (clearTime == 0f)
 				{
-					if (!chunk.IsInRange(playerChunkX, playerChunkZ, chunkDistance)
-						&& !chunk.IsInRange(tramChunkX, tramChunkZ, chunkDistance))
+					if (!isPlayerInRange && !isTramInRange)
 					{
 						chunk.SetClearTime(30f);
 					}
 				}
-				else if (Time.time >= clearTime)
+				else if (!isPlayerInRange && !isTramInRange)
 				{
-					chunk.RemoveChildren();
+					if (Time.time >= clearTime)
+					{
+						chunk.RemoveChildren();
 
-					_chunks.Remove(chunk);
+						_chunks.Remove(chunk);
+					}
+				}
+				else
+				{
+					chunk.CancelClear();
 				}
 			}
 

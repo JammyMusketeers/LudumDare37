@@ -23,6 +23,11 @@ public class Chunk
 		_clearTime = Time.time + clearTime;
 	}
 
+	public void CancelClear()
+	{
+		_clearTime = 0f;
+	}
+
 	public void AddGround()
 	{
 		_ground = GameObject.Instantiate(GameManager.Instance.groundPrefab);
