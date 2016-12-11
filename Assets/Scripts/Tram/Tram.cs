@@ -83,7 +83,7 @@ public class Tram : MonoBehaviour
 		{
 			SetThrottle(throttleLevel - Time.deltaTime);
 		}
-		if (Input.GetKey(KeyCode.T))
+		if (Input.GetKey(KeyCode.T) && fuel > 0)
 		{
 			SetThrottle(throttleLevel + Time.deltaTime);
 		}
@@ -130,6 +130,12 @@ public class Tram : MonoBehaviour
 		transform.position = position;
 
 		fuel -= engineSpool * fuelMultiplier * Time.deltaTime;
+		fuel = Mathf.Clamp(fuel,0f,100f);
+
+		if(fuel <= 0)
+		{
+			throttleLevel = 0;
+		}
 	}
 
 	protected virtual void Start()

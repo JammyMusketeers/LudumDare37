@@ -24,6 +24,12 @@ public class LootItem : MonoBehaviour
 			player.Feed(fillAmount);
 			Destroy(gameObject);
 		}
+
+		if (resourceType == ResourceType.HEALTH)
+		{	
+			player.Heal(fillAmount);
+			Destroy(gameObject);
+		}
 	}
 
 	public void UseEngine (Tram tram)
