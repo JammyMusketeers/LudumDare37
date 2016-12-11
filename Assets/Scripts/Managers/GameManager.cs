@@ -47,6 +47,7 @@ public class GameManager : Singleton<GameManager>
 
 	private Action _fadeToBlackCallback;
 	private float _targetFadeAlpha;
+	private bool _isDeathQueued;
 	private bool _isFading;
 
 	public void FadeToBlack(Action callback = null)
@@ -67,6 +68,11 @@ public class GameManager : Singleton<GameManager>
 			_targetFadeAlpha = 0f;
 			_isFading = true;
 		}
+	}
+
+	public void QueueDeath()
+	{
+		_isDeathQueued = true;
 	}
 
 	public Chunk GetChunkAt(Vector3 position)
@@ -167,7 +173,7 @@ public class GameManager : Singleton<GameManager>
 
 		retryButton.onClick.AddListener(() =>
 		{
-			StateManager.Instance.SetState(new GameState());
+			StateManager.Instance.SetState(new MenuState());
 		});
 	}
 
@@ -254,6 +260,13 @@ public class GameManager : Singleton<GameManager>
 			}
 
 			_nextUpdateGround = Time.time + 1f;
+		}
+
+		if (_isDeathQueued)
+		{
+			_isDeathQueued = false;
+
+			StateManager.Instance.SetState(new LoseState());
 		}
 	}
 }

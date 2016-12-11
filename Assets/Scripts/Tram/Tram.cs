@@ -204,6 +204,10 @@ public class Tram : MonoBehaviour
 	public void Reset()
 	{
 		_isBeingOperated = false;
+
+		EngineOn(false);
+
+		fuel = 100f;
 	}
 
 	protected virtual void Start()

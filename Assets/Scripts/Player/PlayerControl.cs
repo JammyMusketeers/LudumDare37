@@ -51,21 +51,27 @@ public class PlayerControl : MonoBehaviour
 	private float distToGround;
 	private float sprintFactor;
 
+	private bool _initialized;
+
 	void Awake()
 	{
-		anim = GetComponent<Animator> ();
-		cameraTransform = Camera.main.transform;
+		if (!_initialized)
+		{
+			anim = GetComponent<Animator> ();
+			cameraTransform = Camera.main.transform;
 
-		speedFloat = Animator.StringToHash("Speed");
-		jumpBool = Animator.StringToHash("Jump");
-		hFloat = Animator.StringToHash("H");
-		vFloat = Animator.StringToHash("V");
-		aimBool = Animator.StringToHash("Aim");
-		groundedBool = Animator.StringToHash("Grounded");
-		distToGround = GetComponent<Collider>().bounds.extents.y;
-		sprintFactor = sprintSpeed / runSpeed;
+			speedFloat = Animator.StringToHash("Speed");
+			jumpBool = Animator.StringToHash("Jump");
+			hFloat = Animator.StringToHash("H");
+			vFloat = Animator.StringToHash("V");
+			aimBool = Animator.StringToHash("Aim");
+			groundedBool = Animator.StringToHash("Grounded");
+			distToGround = GetComponent<Collider>().bounds.extents.y;
+			sprintFactor = sprintSpeed / runSpeed;
 
-		_player = GetComponent<Player>();
+			_player = GetComponent<Player>();
+			_initialized = true;
+		}
 	}
 
 	bool IsGrounded()
@@ -150,6 +156,8 @@ public class PlayerControl : MonoBehaviour
 
 	public void Reset()
 	{
+		Awake();
+
 		h = 0f;
 		v = 0f;
 		speed = 0f;
