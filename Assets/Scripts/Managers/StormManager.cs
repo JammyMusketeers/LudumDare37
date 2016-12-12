@@ -10,6 +10,7 @@ public class StormManager : Singleton<StormManager>
 	public PlayerControl playerControl;
 	public Player player;
 	public GameObject storm;
+	public float stormStartDistance = 800;
 	public ParticleSystem stormEffect1;
 	public ParticleSystem stormEffect2;
 	public ParticleSystem stormEffect3;
@@ -32,7 +33,7 @@ public class StormManager : Singleton<StormManager>
 
 	public void ResetStorm(Vector3 origin)
 	{
-		storm.transform.position = new Vector3(origin.x, origin.y, origin.z - 1000f);
+		storm.transform.position = new Vector3(origin.x, origin.y, origin.z - stormStartDistance);
 
 		var s1 = stormEffect1.emission;
 		var s2 = stormEffect2.emission;
