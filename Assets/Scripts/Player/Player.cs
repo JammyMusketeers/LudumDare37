@@ -150,18 +150,21 @@ public class Player : MonoBehaviour
 			if(_hasItem && _canFillEngine)
 			{
 				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
+
+				playerSound.PlayOneShot(currentLootItem.useSounds);
+
 				currentLootItem = null;
 				_hasItem = false;
-				playerSound.PlayOneShot(currentLootItem.useSounds);
 			}
 			
 			if(_hasItem && currentLootItem.canUseAnywhere)
 			{
 				currentLootItem.SendMessage("Use", this);
-				currentLootItem = null;
-				_hasItem = false;
 				if (currentLootItem.useSounds != null)
 					playerSound.PlayOneShot(currentLootItem.useSounds);
+
+				currentLootItem = null;
+				_hasItem = false;
 			}
 		}
 
