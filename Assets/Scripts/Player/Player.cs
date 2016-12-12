@@ -56,6 +56,11 @@ public class Player : MonoBehaviour
 		{
 			GameManager.Instance.QueueDeath();
 		}
+
+		if (damage > 0f)
+		{
+			UIManager.Instance.DoBloodSplatter();
+		}
 	}
 
 	public bool IsInsideTram()

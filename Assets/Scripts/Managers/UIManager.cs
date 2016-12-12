@@ -17,17 +17,32 @@ public class UIManager : Singleton<UIManager>
 	public Text fuelConsumpAmount;
 	public float fuelConsumpSigFigs = 1;
 	public RectTransform fuelAmount;
-
+	public Image bloodSplatter;
 	public InventoryUI inventory;
 
 
 	private float fuelBarFullSize;
 	private Vector2 healthDisplaySize;
 	private bool _isInputLocked;
+	private float _bloodSplatterAlpha;
 
 	public void Reset()
 	{
+		_bloodSplatterAlpha = 0f;
 
+		var bloodColor = bloodSplatter.color;
+			bloodColor.a = 0f;
+		bloodSplatter.color = bloodColor;
+
+		_isInputLocked = false;
+	}
+
+	public void DoBloodSplatter()
+	{
+		if (_bloodSplatterAlpha == 0f && bloodSplatter.color.a < 0.1f)
+		{
+			_bloodSplatterAlpha = 0.35f;
+		}
 	}
 
 	protected override void OnSetup()
@@ -39,7 +54,16 @@ public class UIManager : Singleton<UIManager>
 
 	protected virtual void Update()
 	{
-		
+		var bloodColor = bloodSplatter.color;
+
+		bloodColor.a = Mathf.Lerp(bloodColor.a, _bloodSplatterAlpha, Time.deltaTime * 8f);
+
+		bloodSplatter.color = bloodColor;
+
+		if (_bloodSplatterAlpha > 0f && bloodColor.a >= (_bloodSplatterAlpha * 0.8f))
+		{
+			_bloodSplatterAlpha = 0f;
+		}
 	}
 
 	public bool IsInputLocked()
