@@ -32,7 +32,7 @@ public class Tram : MonoBehaviour
 
 	private bool _isBeingOperated;
 	private float throttleLevel;
-	private float engineSpool;
+	public float engineSpool;
 	private float currentSpeed;
 	private bool engineOn = false;
 

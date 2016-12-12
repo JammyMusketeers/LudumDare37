@@ -46,8 +46,6 @@ public class MenuState : BaseState
 	public override void Update()
 	{
 		GameManager.Instance.CurrentTram.fuel = 100f;
-		GameManager.Instance.CurrentTram.SetThrottle(1f);
-		GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.maxMoveSpeed);
 
 		base.Update();
 	}
