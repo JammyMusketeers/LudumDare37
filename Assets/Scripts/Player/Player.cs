@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 	public void CollectLoot(LootItem lootItem)
 	{
 		lootItem.transform.parent = itemSlot.transform;
-		lootItem.transform.localPosition = new Vector3 (0,0,0);
+		lootItem.transform.localPosition = new Vector3(0, 0, 0);
 		currentLootItem = lootItem;
 		playerSound.PlayOneShot(lootItem.collectSound);
 		_hasItem = true;
@@ -130,47 +130,92 @@ public class Player : MonoBehaviour
 
 		if (Input.GetButtonDown("Use"))
 		{
-			if (_isInsideTram)
-			{
-				if (tram.IsCloseToLever(transform.position))
-				{
-					if (!tram.IsBeingOperated())
-					{
-						tram.SetIsBeingOperated(true);
+			var isCloseToStorage = tram.IsCloseToStorage(transform.position);
 
-						LookAt(tram.leverInRangeObject.transform.position);
-					}
-					else
+			if (_hasItem && !_isInsideTram && isCloseToStorage)
+			{
+				var freeSlot = tram.storageInventory.GetFreeSlot();
+
+				if (freeSlot != -1)
+				{
+					tram.storageInventory.InsertItem(freeSlot, currentLootItem);
+
+					lastTouchedLootItem = null;
+					currentLootItem = null;
+					_hasItem = false;
+				}
+				else
+				{
+					var existingItem = tram.storageInventory.InsertItem(0, currentLootItem);
+
+					if (existingItem != null)
 					{
-						tram.SetIsBeingOperated(false);
+						existingItem.SendMessage("Collect", this);
+
+						lastTouchedLootItem = existingItem.gameObject;
+						currentLootItem = existingItem;
+						_hasItem = true;
 					}
 				}
 			}
-
-			if(_hasItem && _canFillEngine)
+			else if (!_isInsideTram && isCloseToStorage)
 			{
-				currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
-
-				playerSound.PlayOneShot(currentLootItem.useSounds);
-
-				currentLootItem = null;
-				_hasItem = false;
+				if (tram.storageInventory.IsOpen())
+				{
+					tram.storageInventory.Close();
+				}
+				else
+				{
+					tram.storageInventory.Open();
+				}
 			}
-			
-			if(_hasItem && currentLootItem.canUseAnywhere)
+			else
 			{
-				currentLootItem.SendMessage("Use", this);
-				if (currentLootItem.useSounds != null)
+				if (_isInsideTram)
+				{
+					if (tram.IsCloseToLever(transform.position))
+					{
+						if (!tram.IsBeingOperated())
+						{
+							tram.SetIsBeingOperated(true);
+
+							LookAt(tram.leverInRangeObject.transform.position);
+						}
+						else
+						{
+							tram.SetIsBeingOperated(false);
+						}
+					}
+				}
+
+				if (_hasItem && _canFillEngine)
+				{
+					currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
+
 					playerSound.PlayOneShot(currentLootItem.useSounds);
 
-				currentLootItem = null;
-				_hasItem = false;
+					currentLootItem = null;
+					_hasItem = false;
+				}
+			
+				if (_hasItem && currentLootItem.canUseAnywhere)
+				{
+					currentLootItem.SendMessage("Use", this);
+
+					if (currentLootItem.useSounds != null)
+					{
+						playerSound.PlayOneShot(currentLootItem.useSounds);
+					}
+
+					currentLootItem = null;
+					_hasItem = false;
+				}
 			}
 		}
 
 		if (_canEnterTram)
 		{
-			if (!_isInsideTram)
+			if (!_isInsideTram && !_hasItem)
 			{
 				if (Input.GetButtonDown("Jump"))
 				{
@@ -188,12 +233,11 @@ public class Player : MonoBehaviour
 
 		if (Input.GetButtonDown("Pickup"))
 		{
-
-			if(!_hasItem)
+			if (!_hasItem)
 			{
-				if(lastTouchedLootItem != null)
+				if (lastTouchedLootItem != null)
 				{
-					if(Vector3.Distance(lastTouchedLootItem.transform.position, transform.position) < pickupDistance)
+					if (Vector3.Distance(lastTouchedLootItem.transform.position, transform.position) < pickupDistance)
 					{
 						lastTouchedLootItem.SendMessage("Collect", this);
 					}
@@ -202,18 +246,16 @@ public class Player : MonoBehaviour
 			else
 			{
 				currentLootItem.transform.SetParent(null);
-				currentLootItem.transform.position = new Vector3
-				(currentLootItem.transform.position.x,
-				0f,
-				currentLootItem.transform.position.z);
+				currentLootItem.transform.position = new Vector3(currentLootItem.transform.position.x, 0f, currentLootItem.transform.position.z);
+				
 				_hasItem = false;
-				if(lastTouchedLootItem != currentLootItem.gameObject && Vector3.Distance(lastTouchedLootItem.transform.position, transform.position) < pickupDistance)
+
+				if (lastTouchedLootItem != currentLootItem.gameObject
+					&& Vector3.Distance(lastTouchedLootItem.transform.position, transform.position) < pickupDistance)
 				{
 					lastTouchedLootItem.SendMessage("Collect", this);
 				}
-		
 			}
-			
 		}
 
 		if (_takeDamage)

@@ -2,20 +2,43 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class InventoryBox : MonoBehaviour {
-
+public class InventoryBox : MonoBehaviour
+{
 	public int numberOfSlots;
 	public LootItem[] contents;
 	public Image[] contentIcons;
 
 	public UIManager ui;
 
-	private bool open;
+	private bool _isOpen;
 
-	public void Open() {
-		if (!open)
+	public bool IsOpen()
+	{
+		return _isOpen;
+	}
+
+	public void Reset()
+	{
+		for (int i = 0; i < contents.Length; i++)
 		{
-			open = true;
+			if (contents[i])
+			{
+				Destroy(contents[i]);
+			}
+
+			contents[i] = null;
+		}
+
+		ui.ShowInventoryPanel(false);
+
+		_isOpen = false;
+	}
+
+	public void Open()
+	{
+		if (!_isOpen)
+		{
+			_isOpen = true;
 			ui.ShowInventoryPanel(true);
 		}
 		else
@@ -24,11 +47,12 @@ public class InventoryBox : MonoBehaviour {
 		}
 	}
 
-	public void Close() {
-		if (open)
+	public void Close()
+	{
+		if (_isOpen)
 		{
-			open = false;
-			ui.ShowInventoryPanel(true);
+			_isOpen = false;
+			ui.ShowInventoryPanel(false);
 		}
 		else
 		{
@@ -36,46 +60,86 @@ public class InventoryBox : MonoBehaviour {
 		}
 	}
 
-	public void InsertItem(int slotid, LootItem newItem)
+	public LootItem InsertItem(int slotId, LootItem newItem)
 	{
-		if (contents[slotid] != null) {
-			// OCCUPIED! swap items eventually
+		var existingItem = (LootItem)null;
 
-		}
-		else
+		if (contents[slotId] != null)
 		{
-			contents[slotid] = newItem;
-			newItem.gameObject.transform.SetParent(transform);
-			newItem.gameObject.SetActive(false); 
+			existingItem = contents[slotId];
+			existingItem.gameObject.transform.SetParent(null);
+			existingItem.gameObject.SetActive(true); 
 		}
+
+		contents[slotId] = newItem;
+
+		newItem.gameObject.transform.SetParent(transform);
+		newItem.gameObject.SetActive(false);
+
+		ui.inventory.SetItem(slotId, newItem);
+
+		return existingItem;
 	}
 
-	public LootItem RetrieveItem(int slotid)
+	public LootItem RetrieveItem(int slotId)
 	{
-		LootItem returnItem;
-		if (contents[slotid] == null) {
-			// Empty!
+		var returnItem = (LootItem)null;
+
+		if (contents[slotId] == null)
+		{
 			return null;
 		}
 		else
 		{
-			returnItem = contents[slotid];
+			returnItem = contents[slotId];
 			returnItem.gameObject.transform.SetParent(null);
 			returnItem.gameObject.SetActive(true); 
 
-			contents[slotid] = null;	// clear slot
+			ui.inventory.SetItem(slotId, null);
+
+			contents[slotId] = null;
 
 			return returnItem;
 		}
 	}
 
-	public int CountFreeSpace()
+	public int GetFreeSlot()
 	{
-		int contentsCount = 0;
 		for (int i = 0; i < contents.Length; i++)
 		{
-			if (contents[i] != null) {
-				contentsCount ++;
+			if (contents[i] == null)
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	public int CountUsedSpace()
+	{
+		var contentsCount = 0;
+
+		for (int i = 0; i < contents.Length; i++)
+		{
+			if (contents[i] != null)
+			{
+				contentsCount++;
+			}
+		}
+
+		return contentsCount;
+	}
+
+	public int CountFreeSpace()
+	{
+		var contentsCount = contents.Length;
+
+		for (int i = 0; i < contents.Length; i++)
+		{
+			if (contents[i] != null)
+			{
+				contentsCount--;
 			}
 		}
 
@@ -86,5 +150,4 @@ public class InventoryBox : MonoBehaviour {
 	{
 		contents = new LootItem[numberOfSlots];
 	}
-
 }
