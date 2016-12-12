@@ -7,7 +7,7 @@ public class Tram : MonoBehaviour
 	public float maxMoveSpeed = 5f;
 	public float moveSpeed = 1f;
 	public float engineSpoolRate = 1f;
-	public float momentumDecay = 0.95f;
+	public float momentumDecay = 1f;
 	public Vector3 moveVector;
 	public GameObject exterior;
 	public Collider entryTrigger;
@@ -88,7 +88,7 @@ public class Tram : MonoBehaviour
 		}
 	}
 
-	public void SetSpeed(float speed)
+	private void SetSpeed(float speed)
 	{
 		currentSpeed = speed;
 	}
@@ -267,7 +267,7 @@ public class Tram : MonoBehaviour
 		}
 
 		// constant bleed-off of speed
-		currentSpeed *= momentumDecay;
+		currentSpeed *= 1 - (momentumDecay * Time.deltaTime);
 
 
 		// apply motion:
@@ -275,6 +275,7 @@ public class Tram : MonoBehaviour
 		var position = transform.position;
 
 		position += (moveVector * currentSpeed * Time.deltaTime);
+		Debug.Log("CurrentSpeed: "+currentSpeed+" engineSpool: "+engineSpool+" throt: "+throttleLevel);
 
 		if (wheels.Length > 0)
 		{
