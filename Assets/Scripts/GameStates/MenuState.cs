@@ -5,6 +5,8 @@ public class MenuState : BaseState
 {
 	public override void OnLoad(BaseState lastState)
 	{
+		UnityEngine.Random.InitState(13373131);
+
 		GameManager.Instance.ClearChunks();
 		GameManager.Instance.camera.Reset();
 		GameManager.Instance.menuUI.SetActive(true);
