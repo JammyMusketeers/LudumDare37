@@ -16,7 +16,7 @@ public class GameState : BaseState
 		GameManager.Instance.CurrentTram.Reset();
 		GameManager.Instance.CurrentTram.EngineOn(true);
 		GameManager.Instance.CurrentTram.PlayerEnter(GameManager.Instance.CurrentPlayer);
-		GameManager.Instance.CurrentTram.SetThrottle(0.1f);
+		GameManager.Instance.CurrentTram.SetThrottle(0.3f);
 		//GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.minMoveSpeed);
 		GameManager.Instance.CurrentTram.ShowCanvasTips(true);
 

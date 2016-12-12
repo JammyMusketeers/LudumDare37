@@ -32,8 +32,8 @@ public class MenuState : BaseState
 		GameManager.Instance.CurrentTram.transform.position = new Vector3(0f, 0f, 0f);
 		GameManager.Instance.CurrentTram.Reset();
 		GameManager.Instance.CurrentTram.EngineOn(true);
-		GameManager.Instance.CurrentTram.SetThrottle(1f);
-		GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.maxMoveSpeed);
+		GameManager.Instance.CurrentTram.SetThrottle(.3f);
+		GameManager.Instance.CurrentTram.SetSpeed(1);
 		GameManager.Instance.CurrentTram.ShowCanvasTips(false);
 
 		GameManager.Instance.CurrentPlayer.Reset();
