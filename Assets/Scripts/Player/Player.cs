@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
 	private bool _takeDamage;
 	private float _nextTakeDamage;
 	public GameObject itemSlot;
-	private  LootItem currentLootItem;
-	private  GameObject lastTouchedLootItem;
-	private  float pickupDistance = 1f;
+	private LootItem currentLootItem;
+	private GameObject lastTouchedLootItem;
+	private float pickupDistance = 1f;
+	public float hungerDecrease = 1f;
+	public float hungerDamage = 5f;
 	public float hunger = 100f;
 	public float health = 100f;
 	public AudioSource playerSound;

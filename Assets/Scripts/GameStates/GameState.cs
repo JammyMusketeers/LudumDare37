@@ -41,8 +41,14 @@ public class GameState : BaseState
 
 		if (Time.time >= _nextHungerDecrease)
 		{
-			player.hunger -= 1;
+			player.hunger = Mathf.Max(player.hunger - player.hungerDecrease, 0);
+
 			_nextHungerDecrease += 3f;
+
+			if (player.hunger <= 0)
+			{
+				player.Hit(player.hungerDamage);
+			}
 		}
 
 		interfaceManager.SetSpeed(tram.GetSpeedPerSecond());

@@ -23,6 +23,10 @@ public class StormManager : Singleton<StormManager>
 	public float audioChannel3MinRange = 20;
 	public float offVolume = -20;
 
+	public float stormKillDistance = 5f;
+	public float stormHurtDistance = 30f;
+	public float stormHurtDamage = 10f;
+
 	private bool stormLevel0 = true;
 	private bool stormLevel1 = false;
 	private bool stormLevel2 = false;
@@ -72,7 +76,6 @@ public class StormManager : Singleton<StormManager>
 			{
 				stormLevel0 = true;
 				stormLevel1 = false;
-
 			}
 
 			if (distance <= 900f && distance >= 500f)
@@ -181,6 +184,15 @@ public class StormManager : Singleton<StormManager>
 			else
 			{
 				audioMixer.SetFloat("level3Vol", offVolume);
+			}
+
+			if (distance < stormKillDistance)
+			{
+				player.Hit(100f);
+			}
+			else if (distance < stormHurtDistance)
+			{
+				player.Hit(stormHurtDamage);
 			}
 
 			_nextStormChecker = Time.time + 1f;
