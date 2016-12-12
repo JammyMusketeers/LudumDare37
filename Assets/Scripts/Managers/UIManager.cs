@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
 	private Vector2 healthDisplaySize;
 	private bool _isInputLocked;
 	private float _bloodSplatterAlpha;
+	private float _tramLocationAlpha;
 
 	public void Reset()
 	{
@@ -70,11 +71,15 @@ public class UIManager : Singleton<UIManager>
 
 		if (tram != null)
 		{
+			var tramLocationColor = tramLocation.color;
+				tramLocationColor.a = Mathf.Lerp(tramLocationColor.a, _tramLocationAlpha, Time.deltaTime * 8f);
+			tramLocation.color = tramLocationColor;
+
 			var screenPos = Camera.main.WorldToViewportPoint(tram.transform.position);
 
 			if (screenPos.x < 0f || screenPos.x > 1f || screenPos.y < 0f || screenPos.y > 1f)
 			{
-				tramLocation.gameObject.SetActive(true);
+				_tramLocationAlpha = 1f;
 
 				screenPos.x = Mathf.Clamp(screenPos.x, 0.05f, 0.95f);
 				screenPos.y = Mathf.Clamp(screenPos.y, 0.05f, 0.95f);
@@ -84,7 +89,7 @@ public class UIManager : Singleton<UIManager>
 			}
 			else
 			{
-				tramLocation.gameObject.SetActive(false);
+				_tramLocationAlpha = 0f;
 			}
 		}
 	}
