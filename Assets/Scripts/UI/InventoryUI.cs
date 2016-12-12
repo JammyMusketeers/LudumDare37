@@ -137,7 +137,7 @@ public class InventoryUI : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKeyDown("Pickup"))
+		if (Input.GetButtonDown("Pickup"))
 		{
 			UseSlot(_selectedIndex);
 		}
