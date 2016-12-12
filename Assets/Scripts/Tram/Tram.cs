@@ -263,7 +263,7 @@ public class Tram : MonoBehaviour
 		else
 		{
 			// apply brakes here!
-			currentSpeed *= 0.98f;
+			currentSpeed *= 1 - (momentumDecay * Time.deltaTime);
 		}
 
 		// constant bleed-off of speed
