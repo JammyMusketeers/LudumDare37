@@ -138,7 +138,11 @@ public class GameManager : Singleton<GameManager>
 		if (addLoot)
 		{
 			chunk.AddLoot();
-			chunk.AddObjects();
+			if(x != 0)
+			{
+				chunk.AddObjects();
+			}
+			
 		}
 
 		if (x != 0)
