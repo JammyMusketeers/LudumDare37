@@ -24,6 +24,11 @@ public class UIManager : MonoBehaviour {
 	private float fuelBarFullSize;
 	private Vector2 healthDisplaySize;
 
+	public void Reset()
+	{
+
+	}
+
 	void Awake()
 	{
 		hungerBarFullSize = hungerAmount.rect.width;

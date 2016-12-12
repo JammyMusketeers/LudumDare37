@@ -79,6 +79,11 @@ public class Tram : MonoBehaviour
 		}
 	}
 
+	public void SetSpeed(float speed)
+	{
+		currentSpeed = speed;
+	}
+
 	public void EngineOn(bool On)
 	{
 		if (On)

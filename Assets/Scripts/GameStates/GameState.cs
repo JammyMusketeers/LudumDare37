@@ -4,15 +4,23 @@ using System.Collections;
 public class GameState : BaseState
 {
 	private float _nextHungerDecrease = 3f;
+	private float _startDistance;
 
 	public override void OnLoad(BaseState lastState)
 	{
 		GameManager.Instance.gameUI.SetActive(true);
+
+		GameManager.Instance.CurrentPlayer.Reset();
 		GameManager.Instance.CurrentPlayer.SetHidden(false);
+
+		GameManager.Instance.CurrentTram.Reset();
+		GameManager.Instance.CurrentTram.EngineOn(true);
 		GameManager.Instance.CurrentTram.PlayerEnter(GameManager.Instance.CurrentPlayer);
 
 		StormManager.Instance.ResetStorm(GameManager.Instance.CurrentTram.transform.position);
 		StormManager.Instance.SetStormActive(true);
+
+		_startDistance = GameManager.Instance.CurrentTram.transform.position.z;
 	}
 
 	public override void OnUnload(BaseState nextState)
@@ -35,7 +43,7 @@ public class GameState : BaseState
 		}
 
 		interfaceManager.SetSpeed(tram.GetSpeedPerSecond());
-		interfaceManager.SetDistance(tram.transform.position.z);
+		interfaceManager.SetDistance(tram.transform.position.z - _startDistance);
 		interfaceManager.SetHealth(player.health / 100f);
 		interfaceManager.SetHunger(player.hunger /100f);
 		interfaceManager.SetFuelConsumption(tram.GetFuelConsumption());

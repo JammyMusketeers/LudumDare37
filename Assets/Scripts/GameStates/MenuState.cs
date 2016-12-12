@@ -31,6 +31,7 @@ public class MenuState : BaseState
 		GameManager.Instance.CurrentTram.Reset();
 		GameManager.Instance.CurrentTram.EngineOn(true);
 		GameManager.Instance.CurrentTram.SetThrottle(1f);
+		GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.maxMoveSpeed);
 
 		GameManager.Instance.CurrentPlayer.Reset();
 		GameManager.Instance.CurrentPlayer.SetHidden(true);
@@ -40,5 +41,14 @@ public class MenuState : BaseState
 	public override void OnUnload(BaseState nextState)
 	{
 		GameManager.Instance.menuUI.SetActive(false);
+	}
+
+	public override void Update()
+	{
+		GameManager.Instance.CurrentTram.fuel = 100f;
+		GameManager.Instance.CurrentTram.SetThrottle(1f);
+		GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.maxMoveSpeed);
+
+		base.Update();
 	}
 }
