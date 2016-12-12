@@ -7,6 +7,10 @@ public class InventoryUI : MonoBehaviour
 	public InventoryBox storage;
 	public InventoryItem[] items;
 
+	private float _nextMoveItem;
+
+	private int _selectedIndex;
+
 	public void SetItem(int slotId, LootItem lootItem)
 	{
 		if (lootItem != null)
@@ -16,6 +20,73 @@ public class InventoryUI : MonoBehaviour
 		else
 		{
 			items[slotId].icon = null;
+		}
+	}
+
+	public void SelectFirst()
+	{
+		var item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(false);
+		}
+
+		_selectedIndex = 0;
+
+		item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(true);
+		}
+	}
+
+	public void SelectNext()
+	{
+		var item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(false);
+		}
+
+		_selectedIndex++;
+
+		if (_selectedIndex >= items.Length)
+		{
+			_selectedIndex = 0;
+		}
+
+		item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(true);
+		}
+	}
+
+	public void SelectPrev()
+	{
+		var item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(false);
+		}
+
+		_selectedIndex--;
+
+		if (_selectedIndex < 0)
+		{
+			_selectedIndex = items.Length - 1;
+		}
+
+		item = items[_selectedIndex];
+
+		if (item.highlight)
+		{
+			item.highlight.SetActive(true);
 		}
 	}
 
@@ -43,6 +114,32 @@ public class InventoryUI : MonoBehaviour
 			{
 				UseSlot(index);
 			});
+		}
+	}
+
+	protected virtual void Update()
+	{
+		if (gameObject.activeSelf && Time.time >= _nextMoveItem)
+		{
+			var horizontal = Input.GetAxis("Horizontal");
+
+			if (horizontal > 0.1f)
+			{
+				_nextMoveItem = Time.time + 0.2f;
+
+				SelectNext();
+			}
+			else if (horizontal < 0.1f)
+			{
+				_nextMoveItem = Time.time + 0.2f;
+
+				SelectPrev();
+			}
+		}
+
+		if (Input.GetKeyDown("Pickup"))
+		{
+			UseSlot(_selectedIndex);
 		}
 	}
 }

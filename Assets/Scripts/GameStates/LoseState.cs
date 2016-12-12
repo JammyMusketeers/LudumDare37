@@ -12,4 +12,14 @@ public class LoseState : BaseState
 	{
 		GameManager.Instance.loseUI.SetActive(false);
 	}
+
+	public override void Update()
+	{
+		if (Input.GetButtonDown("Use"))
+		{
+			StateManager.Instance.SetState(new MenuState());
+		}
+
+		base.Update();
+	}
 }

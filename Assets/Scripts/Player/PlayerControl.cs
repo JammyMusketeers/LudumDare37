@@ -86,7 +86,8 @@ public class PlayerControl : MonoBehaviour
 			return;
 		}
 
-		if (GameManager.Instance.CurrentTram.IsBeingOperated())
+		if (UIManager.Instance.IsInputLocked()
+			|| GameManager.Instance.CurrentTram.IsBeingOperated())
 		{
 			h = 0f;
 			v = 0f;

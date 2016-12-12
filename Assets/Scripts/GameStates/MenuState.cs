@@ -49,6 +49,11 @@ public class MenuState : BaseState
 	{
 		GameManager.Instance.CurrentTram.fuel = 100f;
 
+		if (Input.GetButtonDown("Use"))
+		{
+			StateManager.Instance.SetState(new GameState());
+		}
+
 		base.Update();
 	}
 }

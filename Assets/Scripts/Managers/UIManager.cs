@@ -2,8 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIManager : MonoBehaviour {
-
+public class UIManager : Singleton<UIManager>
+{
 	public Text speedAmount;
 	public float speedSigFigs = 2;
 	public string speedUnits = "km/h";
@@ -23,22 +23,33 @@ public class UIManager : MonoBehaviour {
 
 	private float fuelBarFullSize;
 	private Vector2 healthDisplaySize;
+	private bool _isInputLocked;
 
 	public void Reset()
 	{
 
 	}
 
-	void Awake()
+	protected override void OnSetup()
 	{
 		hungerBarFullSize = hungerAmount.rect.width;
 		fuelBarFullSize = fuelAmount.rect.height;
 		healthDisplaySize = new Vector2(healthAmount.rect.width, healthAmount.rect.height);
 	}
 
-	void Update()
+	protected virtual void Update()
 	{
 		
+	}
+
+	public bool IsInputLocked()
+	{
+		return _isInputLocked;
+	}
+
+	public void LockInput(bool isInputLocked)
+	{
+		_isInputLocked = isInputLocked;
 	}
 
 	public void SetSpeed(float newValue)
@@ -94,5 +105,10 @@ public class UIManager : MonoBehaviour {
 	public void ShowInventoryPanel(bool toggle)
 	{
 		inventory.gameObject.SetActive(toggle);
+
+		if (toggle)
+		{
+			inventory.SelectFirst();
+		}
 	}
 }

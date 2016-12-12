@@ -39,7 +39,9 @@ public class InventoryBox : MonoBehaviour
 		if (!_isOpen)
 		{
 			_isOpen = true;
+
 			ui.ShowInventoryPanel(true);
+			ui.LockInput(true);
 		}
 		else
 		{
@@ -52,7 +54,9 @@ public class InventoryBox : MonoBehaviour
 		if (_isOpen)
 		{
 			_isOpen = false;
+
 			ui.ShowInventoryPanel(false);
+			ui.LockInput(false);
 		}
 		else
 		{
