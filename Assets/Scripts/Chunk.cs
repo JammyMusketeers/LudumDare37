@@ -33,6 +33,14 @@ public class Chunk
 		_ground = GameObject.Instantiate(prefab);
 		_ground.SetSize(GameManager.Instance.chunkSize);
 		_ground.SetPosition(x, z);
+
+		var chunkObjects = _ground.GetComponentsInChildren<ChunkObject>();
+
+		foreach (var chunkObject in chunkObjects)
+		{
+			chunkObject.SetChunk(this);
+			chunkObject.Create();
+		}
 	}
 
 	public void AddRail()
