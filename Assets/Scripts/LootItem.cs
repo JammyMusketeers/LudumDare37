@@ -12,7 +12,7 @@ public class LootItem : MonoBehaviour
 	public bool canUseAnywhere;
 	public AudioClip collectSound;
 	public AudioClip useSounds;
-	public Image icon;
+	public Sprite icon;
 
 	public void Collect(Player player)
 	{

@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
 	{
 		if (lootItem != null)
 		{
-			items[slotId].icon = lootItem.icon;
+			items[slotId].icon.sprite = lootItem.icon;
 		}
 		else
 		{
