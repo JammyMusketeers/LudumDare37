@@ -8,6 +8,7 @@ public class LootItem : MonoBehaviour
 	public ResourceType resourceType;
 	public RarityType rarityType;
 	public int spawnChance = 50;
+	public float spawnDistanceAdd = 10f;
 	public int fillAmount;
 	public bool canUseAnywhere;
 	public AudioClip collectSound;

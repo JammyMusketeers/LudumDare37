@@ -71,22 +71,6 @@ public class Chunk
 		var chunkObjectPrefabs = GameManager.Instance.chunkObjectPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minObjectSpawn, maxObjectSpawn + 1);
 		var candidates = new List<ChunkObject>();
-
-		foreach (var prefab in chunkObjectPrefabs)
-		{
-			var randomChance = UnityEngine.Random.Range(0, 101);
-
-			if (randomChance < prefab.spawnChance)
-			{
-				candidates.Add(prefab);
-			}
-		}
-
-		if (candidates.Count == 0)
-		{
-			return;
-		}
-
 		var spawnPoints = _ground.GetSpawnPoints();
 
 		while (randomAmount > 0)
@@ -98,6 +82,21 @@ public class Chunk
 
 			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
 			var spawnPoint = spawnPoints[randomSpawnPoint];
+
+			foreach (var prefab in chunkObjectPrefabs)
+			{
+				var randomChance = UnityEngine.Random.Range(0, 101);
+
+				if (randomChance < prefab.spawnChance)
+				{
+					candidates.Add(prefab);
+				}
+			}
+
+			if (candidates.Count == 0)
+			{
+				break;
+			}
 
 			spawnPoints.RemoveAt(randomSpawnPoint);
 
@@ -123,23 +122,6 @@ public class Chunk
 		var maxLootSpawn = GameManager.Instance.maxLootSpawn;
 		var lootItemPrefabs = GameManager.Instance.lootItemPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
-		var candidates = new List<LootItem>();
-
-		foreach (var prefab in lootItemPrefabs)
-		{
-			var randomChance = UnityEngine.Random.Range(0, 101);
-
-			if (randomChance < prefab.spawnChance)
-			{
-				candidates.Add(prefab);
-			}
-		}
-
-		if (candidates.Count == 0)
-		{
-			return;
-		}
-
 		var spawnPoints = _ground.GetSpawnPoints();
 
 		while (randomAmount > 0)
@@ -151,6 +133,26 @@ public class Chunk
 
 			var randomSpawnPoint =  UnityEngine.Random.Range(0, spawnPoints.Count);
 			var spawnPoint = spawnPoints[randomSpawnPoint];
+
+			var candidates = new List<LootItem>();
+
+			foreach (var prefab in lootItemPrefabs)
+			{
+				var randomChance = UnityEngine.Random.Range(0, 101);
+				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.z) / prefab.spawnDistanceAdd);
+
+				randomChance = Mathf.Clamp(randomChance + spawnDistanceAdd, 0, 101);
+
+				if (randomChance < prefab.spawnChance)
+				{
+					candidates.Add(prefab);
+				}
+			}
+
+			if (candidates.Count == 0)
+			{
+				break;
+			}
 
 			spawnPoints.RemoveAt(randomSpawnPoint);
 

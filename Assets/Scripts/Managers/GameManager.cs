@@ -135,7 +135,7 @@ public class GameManager : Singleton<GameManager>
 		chunk.AddGround(ground);
 		chunk.AddGrass();
 
-		if (addLoot && x != 0)
+		if (addLoot)
 		{
 			chunk.AddLoot();
 			chunk.AddObjects();
