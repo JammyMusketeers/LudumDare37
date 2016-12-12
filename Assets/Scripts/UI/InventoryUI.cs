@@ -114,6 +114,8 @@ public class InventoryUI : MonoBehaviour
 			{
 				UseSlot(index);
 			});
+
+			item.highlight.SetActive(false);
 		}
 	}
 
@@ -129,7 +131,7 @@ public class InventoryUI : MonoBehaviour
 
 				SelectNext();
 			}
-			else if (horizontal < 0.1f)
+			else if (horizontal < -0.1f)
 			{
 				_nextMoveItem = Time.time + 0.2f;
 
