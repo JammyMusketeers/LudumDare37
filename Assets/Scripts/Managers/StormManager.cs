@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,6 +13,14 @@ public class StormManager : Singleton<StormManager>
 	public ParticleSystem stormEffect1;
 	public ParticleSystem stormEffect2;
 	public ParticleSystem stormEffect3;
+	public AudioMixer audioMixer;
+	public float audioChannel1MaxRange = 1000;
+	public float audioChannel1MinRange = 100;
+	public float audioChannel2MaxRange = 600;
+	public float audioChannel2MinRange = 160;
+	public float audioChannel3MaxRange = 350;
+	public float audioChannel3MinRange = 20;
+	public float offVolume = -20;
 
 	private bool stormLevel0 = true;
 	private bool stormLevel1 = false;
@@ -109,6 +118,68 @@ public class StormManager : Singleton<StormManager>
 			{
 				playerControl.stormSpeedDecay = 0.5f;
 				s3.enabled = true;
+			}
+
+			// sound updates
+
+			if (distance < audioChannel1MaxRange)
+			{
+				if (distance > audioChannel1MinRange) 
+				{
+					float rangeArea = audioChannel1MaxRange - audioChannel1MinRange;
+					float pointInRange = distance - audioChannel1MinRange;
+					float proportion = pointInRange / rangeArea;
+					float volumeModifier = offVolume * proportion;
+					audioMixer.SetFloat("level1Vol", volumeModifier);
+				}
+				else
+				{
+					audioMixer.SetFloat("level1Vol", 0);
+				}
+			}
+			else
+			{
+				audioMixer.SetFloat("level1Vol", offVolume);
+			}
+
+			if (distance < audioChannel2MaxRange)
+			{
+				if (distance > audioChannel2MinRange) 
+				{
+					float rangeArea = audioChannel2MaxRange - audioChannel2MinRange;
+					float pointInRange = distance - audioChannel2MinRange;
+					float proportion = pointInRange / rangeArea;
+					float volumeModifier = offVolume * proportion;
+					audioMixer.SetFloat("level2Vol", volumeModifier);
+				}
+				else
+				{
+					audioMixer.SetFloat("level2Vol", 0);
+				}
+			}
+			else
+			{
+				audioMixer.SetFloat("level2Vol", offVolume);
+			}
+
+			if (distance < audioChannel3MaxRange)
+			{
+				if (distance > audioChannel3MinRange) 
+				{
+					float rangeArea = audioChannel3MaxRange - audioChannel3MinRange;
+					float pointInRange = distance - audioChannel3MinRange;
+					float proportion = pointInRange / rangeArea;
+					float volumeModifier = offVolume * proportion;
+					audioMixer.SetFloat("level3Vol", volumeModifier);
+				}
+				else
+				{
+					audioMixer.SetFloat("level3Vol", 0);
+				}
+			}
+			else
+			{
+				audioMixer.SetFloat("level3Vol", offVolume);
 			}
 
 			_nextStormChecker = Time.time + 1f;
