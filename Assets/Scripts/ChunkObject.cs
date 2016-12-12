@@ -7,6 +7,7 @@ public class ChunkObject : MonoBehaviour
 {
 	public string objectName;
 	public int spawnChance = 50;
+	public float spawnDistanceAdd = 10f;
 
 	protected Chunk _chunk;
 
