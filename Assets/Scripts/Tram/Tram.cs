@@ -73,7 +73,8 @@ public class Tram : MonoBehaviour
 
 		if (throttleLevel < 0)
 			throttleLevel = 0;
-		if (throttleLevel > 0 && !engineOn)
+
+		if (throttleLevel > 0 && !engineOn && fuel > 0)
 			EngineOn(true);
 
 		if (throttleLever != null) 
