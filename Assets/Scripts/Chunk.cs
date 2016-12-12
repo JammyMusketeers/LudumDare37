@@ -86,7 +86,7 @@ public class Chunk
 			foreach (var prefab in chunkObjectPrefabs)
 			{
 				var randomChance = UnityEngine.Random.Range(0, 101);
-				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.z) / prefab.spawnDistanceAdd);
+				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.x) / prefab.spawnDistanceAdd);
 
 				randomChance = Mathf.Clamp(randomChance - spawnDistanceAdd, 0, 101);
 
@@ -142,7 +142,7 @@ public class Chunk
 			foreach (var prefab in lootItemPrefabs)
 			{
 				var randomChance = UnityEngine.Random.Range(0, 101);
-				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.z) / prefab.spawnDistanceAdd);
+				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.x) / prefab.spawnDistanceAdd);
 
 				randomChance = Mathf.Clamp(randomChance - spawnDistanceAdd, 0, 101);
 
