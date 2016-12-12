@@ -10,6 +10,7 @@ public class ChunkLootSpawner : ChunkObject
 	{
 		public RarityType rarityType;
 		public ResourceType resourceType;
+		public int spawnChance;
 	}
 
 	public Transform[] spawnPoints;
@@ -34,8 +35,9 @@ public class ChunkLootSpawner : ChunkObject
 		for (int i = 0; i < spawnItems.Length; i++)
 		{
 			var spawnItem = spawnItems[i];
+			var randomChance = UnityEngine.Random.Range(0, 101);
 
-			if (spawnPointIndexes.Count > 0)
+			if (randomChance <= spawnItem.spawnChance && spawnPointIndexes.Count > 0)
 			{
 				var randomIndex = UnityEngine.Random.Range(0, spawnPointIndexes.Count);
 				var spawnPointIndex = spawnPointIndexes[randomIndex];
