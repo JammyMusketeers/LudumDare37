@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
 	public LootItem[] lootItemPrefabs;
 	public int minLootSpawn = 0;
 	public int maxLootSpawn = 4;
+	public int lootSpawnDistanceAdd = 1;
 
 	public ChunkObject[] chunkObjectPrefabs;
 	public int minObjectSpawn = 0;
