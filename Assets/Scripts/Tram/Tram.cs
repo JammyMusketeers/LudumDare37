@@ -15,6 +15,7 @@ public class Tram : MonoBehaviour
 	public Collider exteriorCollider;
 	public Collider[] interiorColliders;
 	public Collider engineCollider;
+	public Transform startSpawn;
 	public Transform insideSpawn;
 	public Transform outsideSpawn;
 	public Transform[] wheels;

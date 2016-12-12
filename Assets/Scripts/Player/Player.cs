@@ -103,7 +103,15 @@ public class Player : MonoBehaviour
 	public void PutInsideTram(Tram tram)
 	{
 		transform.parent = tram.transform;
-		transform.position = tram.insideSpawn.position;
+
+		if (tram.startSpawn)
+		{
+			transform.position = tram.startSpawn.position;
+		}
+		else
+		{
+			transform.position = tram.insideSpawn.position;
+		}
 
 		controller.SetPosition(transform.position);
 		controller.SetRotation(transform.rotation);
