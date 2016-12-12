@@ -19,6 +19,7 @@ public class UIManager : Singleton<UIManager>
 	public RectTransform fuelAmount;
 	public Image bloodSplatter;
 	public InventoryUI inventory;
+	public Image tramLocation;
 
 
 	private float fuelBarFullSize;
@@ -63,6 +64,28 @@ public class UIManager : Singleton<UIManager>
 		if (_bloodSplatterAlpha > 0f && bloodColor.a >= (_bloodSplatterAlpha * 0.8f))
 		{
 			_bloodSplatterAlpha = 0f;
+		}
+
+		var tram = GameManager.Instance.CurrentTram;
+
+		if (tram != null)
+		{
+			var screenPos = Camera.main.WorldToViewportPoint(tram.transform.position);
+
+			if (screenPos.x < 0f || screenPos.x > 1f || screenPos.y < 0f || screenPos.y > 1f)
+			{
+				tramLocation.gameObject.SetActive(true);
+
+				screenPos.x = Mathf.Clamp(screenPos.x, 0.05f, 0.95f);
+				screenPos.y = Mathf.Clamp(screenPos.y, 0.05f, 0.95f);
+
+				tramLocation.rectTransform.anchorMin = screenPos;
+				tramLocation.rectTransform.anchorMax = screenPos;
+			}
+			else
+			{
+				tramLocation.gameObject.SetActive(false);
+			}
 		}
 	}
 
