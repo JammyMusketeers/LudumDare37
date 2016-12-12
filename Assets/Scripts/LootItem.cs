@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LootItem : MonoBehaviour
@@ -11,15 +12,14 @@ public class LootItem : MonoBehaviour
 	public bool canUseAnywhere;
 	public AudioClip collectSound;
 	public AudioClip useSounds;
+	public Image icon;
 
-	public void Collect (Player player)
+	public void Collect(Player player)
 	{
-
 		player.CollectLoot(this);
-
 	}
 
-	public void Use (Player player)
+	public void Use(Player player)
 	{
 		if (resourceType == ResourceType.HUNGER)
 		{	
@@ -32,7 +32,6 @@ public class LootItem : MonoBehaviour
 			player.Heal(fillAmount);
 			Destroy(gameObject);
 		}
-
 	}
 
 	public void UseEngine (Tram tram)

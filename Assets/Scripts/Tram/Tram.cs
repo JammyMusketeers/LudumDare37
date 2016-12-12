@@ -20,7 +20,10 @@ public class Tram : MonoBehaviour
 	public Transform outsideSpawn;
 	public Transform[] wheels;
 	public Transform leverObject;
+	public Transform storageObject;
+	public InventoryBox storageInventory;
 	public GameObject leverInRangeObject;
+	public GameObject storageInRangeObject;
 	public float wheelSpeed = 1f;
 	public Transform throttleLever;
 	public float leverAngleRange = 90;
@@ -124,6 +127,11 @@ public class Tram : MonoBehaviour
 		return engineSpool * fuelMultiplier;
 	}
 
+	public bool IsCloseToStorage(Vector3 position)
+	{
+		return Vector3.Distance(storageObject.position, position) < 3f; 
+	}
+
 	public bool IsCloseToLever(Vector3 position)
 	{
 		return Vector3.Distance(leverObject.position, position) < 1.5f; 
@@ -141,13 +149,29 @@ public class Tram : MonoBehaviour
 
 	protected virtual void Update()
 	{
-		if (!_isBeingOperated && _player != null && IsCloseToLever(_player.transform.position))
+		var player = GameManager.Instance.CurrentPlayer;
+
+		if (!_isBeingOperated && player != null && IsCloseToLever(player.transform.position))
 		{
 			leverInRangeObject.SetActive(true);
 		}
 		else
 		{
 			leverInRangeObject.SetActive(false);
+		}
+
+		if (player != null && !player.IsInsideTram() && IsCloseToStorage(player.transform.position))
+		{
+			storageInRangeObject.SetActive(true);
+		}
+		else
+		{
+			if (storageInventory.IsOpen())
+			{
+				storageInventory.Close();
+			}
+
+			storageInRangeObject.SetActive(false);
 		}
 
 		if (IsBeingOperated())
@@ -219,6 +243,8 @@ public class Tram : MonoBehaviour
 	public void Reset()
 	{
 		Awake();
+
+		storageInventory.Reset();
 
 		_isBeingOperated = false;
 
