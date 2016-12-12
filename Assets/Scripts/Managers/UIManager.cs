@@ -20,6 +20,7 @@ public class UIManager : Singleton<UIManager>
 	public Image bloodSplatter;
 	public InventoryUI inventory;
 	public Image tramLocation;
+	public Text loseDistanceTravelled;
 
 
 	private float fuelBarFullSize;
