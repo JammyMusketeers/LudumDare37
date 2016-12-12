@@ -39,7 +39,7 @@ public class IsometricCamera : MonoBehaviour
 		{
 			movingSpeed = Vector3.Distance(transform.position, _lastPosition.Value);
 			movingSpeed *= movingSpeed;
-			_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, minViewSize + (speedViewMultiplier * movingSpeed), Time.deltaTime);
+			_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, minViewSize + (speedViewMultiplier * movingSpeed), Time.smoothDeltaTime);
 		}
 		_lastPosition = transform.position;
 

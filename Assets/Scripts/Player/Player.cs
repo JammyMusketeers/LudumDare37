@@ -160,7 +160,8 @@ public class Player : MonoBehaviour
 				currentLootItem.SendMessage("Use", this);
 				currentLootItem = null;
 				_hasItem = false;
-				playerSound.PlayOneShot(currentLootItem.useSounds);
+				if (currentLootItem.useSounds != null)
+					playerSound.PlayOneShot(currentLootItem.useSounds);
 			}
 		}
 

@@ -53,7 +53,7 @@ public class StormManager : Singleton<StormManager>
 
 		if (Time.time >= _nextStormChecker)
 		{
-			var distance = Vector3.Distance(storm.transform.position, player.transform.position);
+			var distance = player.gameObject.transform.position.z - storm.transform.position.z;
 			var s1 = stormEffect1.emission;
 			var s2 = stormEffect2.emission;
 			var s3 = stormEffect3.emission;
