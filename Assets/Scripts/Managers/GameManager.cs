@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,6 +18,8 @@ public class GameManager : Singleton<GameManager>
 	public Player CurrentPlayer { get; set; }
 
 	public IsometricCamera camera;
+	public AudioMixer audioMixer;
+	public AudioSource musicSource;
 	public Player player;
 	public Tram tram;
 	public Image fadeToBlack;
@@ -59,6 +62,16 @@ public class GameManager : Singleton<GameManager>
 	private float _targetFadeAlpha;
 	private bool _isDeathQueued;
 	private bool _isFading;
+
+	public void MuteMusic()
+	{
+		musicSource.Stop();
+	}
+
+	public void PlayMusic()
+	{
+		musicSource.Play();
+	}
 
 	public void FadeToBlack(Action callback = null)
 	{

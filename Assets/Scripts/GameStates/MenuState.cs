@@ -11,6 +11,8 @@ public class MenuState : BaseState
 		GameManager.Instance.camera.Reset();
 		GameManager.Instance.menuUI.SetActive(true);
 
+		GameManager.Instance.PlayMusic();
+
 		StormManager.Instance.ResetStorm(new Vector3(0f, 0f, 0f));
 		StormManager.Instance.SetStormActive(false);
 

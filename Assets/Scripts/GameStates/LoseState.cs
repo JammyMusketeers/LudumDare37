@@ -6,6 +6,7 @@ public class LoseState : BaseState
 	public override void OnLoad(BaseState lastState)
 	{
 		GameManager.Instance.loseUI.SetActive(true);
+		GameManager.Instance.MuteMusic();
 
 		UIManager.Instance.loseDistanceTravelled.text = UIManager.Instance.distanceAmount.text;
 	}
