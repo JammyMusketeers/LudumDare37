@@ -34,6 +34,7 @@ public class MenuState : BaseState
 		GameManager.Instance.CurrentTram.EngineOn(true);
 		GameManager.Instance.CurrentTram.SetThrottle(1f);
 		GameManager.Instance.CurrentTram.SetSpeed(GameManager.Instance.CurrentTram.maxMoveSpeed);
+		GameManager.Instance.CurrentTram.ShowCanvasTips(false);
 
 		GameManager.Instance.CurrentPlayer.Reset();
 		GameManager.Instance.CurrentPlayer.SetHidden(true);
