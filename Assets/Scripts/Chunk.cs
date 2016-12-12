@@ -28,9 +28,9 @@ public class Chunk
 		_clearTime = 0f;
 	}
 
-	public void AddGround()
+	public void AddGround(Ground prefab)
 	{
-		_ground = GameObject.Instantiate(GameManager.Instance.groundPrefab);
+		_ground = GameObject.Instantiate(prefab);
 		_ground.SetSize(GameManager.Instance.chunkSize);
 		_ground.SetPosition(x, z);
 	}

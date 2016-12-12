@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
+	[Serializable]
+	public class GroundType
+	{
+		public Ground prefab;
+		public int spawnChance;
+	}
+
 	public Tram CurrentTram { get; set; }
 	public Player CurrentPlayer { get; set; }
 
@@ -17,6 +24,9 @@ public class GameManager : Singleton<GameManager>
 	public int chunkDistance = 2;
 	public Ground groundPrefab;
 	public GameObject railPrefab;
+
+	public GroundType[] groundTypes;
+
 	public UIManager interfaceManager;
 
 	public GameObject menuUI;
@@ -103,7 +113,26 @@ public class GameManager : Singleton<GameManager>
 		chunk.x = x;
 		chunk.z = z;
 
-		chunk.AddGround();
+		var groundCandidates = new List<Ground>();
+
+		foreach (var groundType in groundTypes)
+		{
+			var spawnChance = UnityEngine.Random.Range(0, 101);
+
+			if (spawnChance < groundType.spawnChance)
+			{
+				groundCandidates.Add(groundType.prefab);
+			}
+		}
+
+		var ground = groundPrefab;
+
+		if (groundCandidates.Count > 0)
+		{
+			ground = groundCandidates[UnityEngine.Random.Range(0, groundCandidates.Count)];
+		}
+
+		chunk.AddGround(ground);
 		chunk.AddGrass();
 
 		if (addLoot && x != 0)
