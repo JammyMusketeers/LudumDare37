@@ -4,6 +4,7 @@ using System.Collections;
 public class IsometricCamera : MonoBehaviour
 {
 	public Player player;
+	public Tram train;
 	public Vector3 distance = new Vector3(10f, 10f, 10f);
 	public float angle = 45f;
 
@@ -35,12 +36,21 @@ public class IsometricCamera : MonoBehaviour
 		transform.eulerAngles = rotation;
 
 		// speed multiplier
+		if (train != null) 
+		{
+			_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 
+				minViewSize + (speedViewMultiplier * train.GetSpeedPerSecond()), Time.smoothDeltaTime);
+		}
+		/*
 		if (_lastPosition != null)
 		{
 			movingSpeed = Vector3.Distance(transform.position, _lastPosition.Value);
 			movingSpeed *= movingSpeed;
 			_camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, minViewSize + (speedViewMultiplier * movingSpeed), Time.smoothDeltaTime);
 		}
+
+		*/
+
 		_lastPosition = transform.position;
 
 		/*
