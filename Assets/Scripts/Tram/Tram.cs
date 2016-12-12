@@ -46,6 +46,10 @@ public class Tram : MonoBehaviour
 	public float fuel = 100f;
 	public float fuelMultiplier = 1f;
 
+	public CanvasGroup engineCanvas;
+	public CanvasGroup driveCanvas;
+	public CanvasGroup storageCanvas;
+
 	private bool _initialized;
 
 	public virtual void PlayerEnter(Player player)
@@ -89,12 +93,19 @@ public class Tram : MonoBehaviour
 		currentSpeed = speed;
 	}
 
+	public void ShowCanvasTips(bool isShown)
+	{
+		storageCanvas.gameObject.SetActive(isShown);
+		driveCanvas.gameObject.SetActive(isShown);
+	}
+
 	public void EngineOn(bool On)
 	{
 		if (On)
 		{
 			engineOn = true;
 			engineSoundEmitter.Play();
+
 			if (soundStartEngine != null)
 				thisAudio.PlayOneShot(soundStartEngine);
 		} 
@@ -103,6 +114,7 @@ public class Tram : MonoBehaviour
 			engineOn = false;
 			engineSpool = 0;
 			engineSoundEmitter.Stop();
+
 			if (soundStopEngine != null)
 				thisAudio.PlayOneShot(soundStopEngine);
 		}
@@ -112,6 +124,7 @@ public class Tram : MonoBehaviour
 	{
 		fuel += amount;
 		fuel = Mathf.Clamp(fuel,0, 100f);
+
 		if(fuel > 0)
 		{
 			EngineOn(true);
@@ -148,6 +161,14 @@ public class Tram : MonoBehaviour
 		_isBeingOperated = isBeingOperated;
 	}
 
+	public void UpdateCanvasTip(CanvasGroup group, Vector3 position)
+	{
+		var distance = Vector3.Distance(group.transform.position, position) - 2f;
+		var clamped = Mathf.Clamp(distance, 0f, 4f);
+
+		group.alpha = 1f - ((1f / 4f) * clamped);
+	}
+
 	protected virtual void Update()
 	{
 		var player = GameManager.Instance.CurrentPlayer;
@@ -173,6 +194,20 @@ public class Tram : MonoBehaviour
 			}
 
 			storageInRangeObject.SetActive(false);
+		}
+
+		if (player != null)
+		{
+			if (player.IsInsideTram())
+			{
+				UpdateCanvasTip(driveCanvas, player.transform.position);
+				storageCanvas.alpha = 0f;
+			}
+			else
+			{
+				UpdateCanvasTip(storageCanvas, player.transform.position);
+				driveCanvas.alpha = 0f;
+			}
 		}
 
 		if (IsBeingOperated())

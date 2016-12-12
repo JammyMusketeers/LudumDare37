@@ -17,6 +17,7 @@ public class GameState : BaseState
 		GameManager.Instance.CurrentTram.EngineOn(true);
 		GameManager.Instance.CurrentTram.PlayerEnter(GameManager.Instance.CurrentPlayer);
 		GameManager.Instance.CurrentTram.SetThrottle(0.1f);
+		GameManager.Instance.CurrentTram.ShowCanvasTips(true);
 
 		StormManager.Instance.ResetStorm(GameManager.Instance.CurrentTram.transform.position);
 		StormManager.Instance.SetStormActive(true);
