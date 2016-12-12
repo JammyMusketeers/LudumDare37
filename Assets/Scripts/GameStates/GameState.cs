@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameState : BaseState
 {
-	private float _nextHungerDecrease = 3f;
+	private float _nextHungerDecrease = 0f;
 	private float _startDistance;
 
 	public override void OnLoad(BaseState lastState)
@@ -23,6 +23,7 @@ public class GameState : BaseState
 		StormManager.Instance.ResetStorm(GameManager.Instance.CurrentTram.transform.position);
 		StormManager.Instance.SetStormActive(true);
 
+		_nextHungerDecrease = Time.time + 3f;
 		_startDistance = GameManager.Instance.CurrentTram.transform.position.z;
 	}
 
@@ -43,7 +44,7 @@ public class GameState : BaseState
 		{
 			player.hunger = Mathf.Max(player.hunger - player.hungerDecrease, 0);
 
-			_nextHungerDecrease += 3f;
+			_nextHungerDecrease = Time.time + 3f;
 
 			if (player.hunger <= 0)
 			{
