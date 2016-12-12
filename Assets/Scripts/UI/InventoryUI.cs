@@ -19,7 +19,7 @@ public class InventoryUI : MonoBehaviour
 		}
 		else
 		{
-			items[slotId].icon = null;
+			items[slotId].icon.sprite = null;
 		}
 	}
 
