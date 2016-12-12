@@ -88,7 +88,7 @@ public class Chunk
 				var randomChance = UnityEngine.Random.Range(0, 101);
 				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.z) / prefab.spawnDistanceAdd);
 
-				randomChance = Mathf.Clamp(randomChance + spawnDistanceAdd, 0, 101);
+				randomChance = Mathf.Clamp(randomChance - spawnDistanceAdd, 0, 101);
 
 				if (randomChance < prefab.spawnChance)
 				{
@@ -144,7 +144,7 @@ public class Chunk
 				var randomChance = UnityEngine.Random.Range(0, 101);
 				var spawnDistanceAdd = Mathf.CeilToInt(Mathf.Abs(spawnPoint.position.z) / prefab.spawnDistanceAdd);
 
-				randomChance = Mathf.Clamp(randomChance + spawnDistanceAdd, 0, 101);
+				randomChance = Mathf.Clamp(randomChance - spawnDistanceAdd, 0, 101);
 
 				if (randomChance < prefab.spawnChance)
 				{
