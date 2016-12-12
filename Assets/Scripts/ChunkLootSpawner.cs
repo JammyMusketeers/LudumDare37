@@ -55,7 +55,7 @@ public class ChunkLootSpawner : ChunkObject
 				{
 					randomIndex = UnityEngine.Random.Range(0, candidates.Count);
 
-					var randomLoot = lootItemPrefabs[randomIndex];
+					var randomLoot = candidates[randomIndex];
 					var lootObject = GameObject.Instantiate(randomLoot);
 
 					lootObject.transform.position = spawnPoint.transform.position;
