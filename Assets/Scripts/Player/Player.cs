@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 	private bool _isInsideTram;
 	private bool _canEnterTram;
 	public bool _hasItem;
-	public bool _canFillEngine;
 	private bool _takeDamage;
 	private float _nextTakeDamage;
 	public GameObject itemSlot;
@@ -75,7 +74,6 @@ public class Player : MonoBehaviour
 
 		currentLootItem = null;
 
-		_canFillEngine = false;
 		_canEnterTram = false;
 		_takeDamage = false;
 		_hasItem = false;
@@ -188,17 +186,19 @@ public class Player : MonoBehaviour
 					}
 				}
 
-				if (_hasItem && _canFillEngine)
+				if (_hasItem && currentLootItem.resourceType == ResourceType.FUEL)
 				{
-					currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
+					if (_isInsideTram && tram.IsCloseToEngine(transform.position))
+					{
+						currentLootItem.SendMessage("UseEngine", GameManager.Instance.CurrentTram);
 
-					playerSound.PlayOneShot(currentLootItem.useSounds);
+						playerSound.PlayOneShot(currentLootItem.useSounds);
 
-					currentLootItem = null;
-					_hasItem = false;
+						currentLootItem = null;
+						_hasItem = false;
+					}
 				}
-			
-				if (_hasItem && currentLootItem.canUseAnywhere)
+				else if (_hasItem && currentLootItem.canUseAnywhere)
 				{
 					currentLootItem.SendMessage("Use", this);
 
@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
 
 		if (_canEnterTram)
 		{
-			if (!_isInsideTram && !_hasItem)
+			if (!_isInsideTram)
 			{
 				if (Input.GetButtonDown("Jump"))
 				{
@@ -243,10 +243,13 @@ public class Player : MonoBehaviour
 					}
 				}
 			}
-			else
+			else if (!_isInsideTram)
 			{
 				currentLootItem.transform.SetParent(null);
-				currentLootItem.transform.position = new Vector3(currentLootItem.transform.position.x, 0f, currentLootItem.transform.position.z);
+
+				currentLootItem.transform.position = new Vector3(
+					currentLootItem.transform.position.x, 0f, currentLootItem.transform.position.z
+				);
 				
 				_hasItem = false;
 
@@ -304,11 +307,6 @@ public class Player : MonoBehaviour
 		{
 			collider.gameObject.SendMessage("HitPlayer", this);
 		}
-
-		if (collider == tram.engineCollider)
-		{
-			_canFillEngine = true;
-		}
  	}
 
 	protected virtual void OnTriggerExit(Collider collider)
@@ -325,15 +323,9 @@ public class Player : MonoBehaviour
 			_canEnterTram = false;
 		}
 
-		if (collider == tram.engineCollider)
-		{
-			_canFillEngine = false;
-		}
-
 		if(collider.gameObject.tag == "Hazard")
 		{
 			_takeDamage = false;
 		}
  	}
-
 }

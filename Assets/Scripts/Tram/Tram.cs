@@ -14,15 +14,15 @@ public class Tram : MonoBehaviour
 	public Collider exitTrigger;
 	public Collider exteriorCollider;
 	public Collider[] interiorColliders;
-	public Collider engineCollider;
 	public Transform startSpawn;
 	public Transform insideSpawn;
-	public Transform outsideSpawn;
 	public Transform[] wheels;
 	public Transform leverObject;
 	public Transform storageObject;
+	public Transform engineObject;
 	public InventoryBox storageInventory;
 	public GameObject leverInRangeObject;
+	public GameObject engineInRangeObject;
 	public GameObject storageInRangeObject;
 	public float wheelSpeed = 1f;
 	public Transform throttleLever;
@@ -97,6 +97,7 @@ public class Tram : MonoBehaviour
 	{
 		storageCanvas.gameObject.SetActive(isShown);
 		driveCanvas.gameObject.SetActive(isShown);
+		engineCanvas.gameObject.SetActive(isShown);
 	}
 
 	public void EngineOn(bool On)
@@ -144,6 +145,11 @@ public class Tram : MonoBehaviour
 	public bool IsCloseToStorage(Vector3 position)
 	{
 		return Vector3.Distance(storageObject.position, position) < 3f; 
+	}
+
+	public bool IsCloseToEngine(Vector3 position)
+	{
+		return Vector3.Distance(engineObject.position, position) < 1.5f; 
 	}
 
 	public bool IsCloseToLever(Vector3 position)
@@ -196,16 +202,29 @@ public class Tram : MonoBehaviour
 			storageInRangeObject.SetActive(false);
 		}
 
+		if (player != null && player.IsInsideTram() && IsCloseToEngine(player.transform.position))
+		{
+			engineInRangeObject.SetActive(true);
+		}
+		else
+		{
+			engineInRangeObject.SetActive(false);
+		}
+
 		if (player != null)
 		{
 			if (player.IsInsideTram())
 			{
 				UpdateCanvasTip(driveCanvas, player.transform.position);
+				UpdateCanvasTip(engineCanvas, player.transform.position);
+
 				storageCanvas.alpha = 0f;
 			}
 			else
 			{
 				UpdateCanvasTip(storageCanvas, player.transform.position);
+
+				engineCanvas.alpha = 0f;
 				driveCanvas.alpha = 0f;
 			}
 		}
