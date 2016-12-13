@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4f221cd59acea3044ae4e8a0fdf0e949
-timeCreated: 1481474342
+timeCreated: 1481590776
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -21,6 +21,7 @@ TextureImporter:
     21300028: distance_marker
     21300030: speed_gauge
     21300032: heart_bg
+    21300034: Train
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -158,6 +159,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 18, y: 18, z: 18, w: 18}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Train
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 92
+        width: 82
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
