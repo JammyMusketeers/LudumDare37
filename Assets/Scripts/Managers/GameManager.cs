@@ -226,6 +226,11 @@ public class GameManager : Singleton<GameManager>
 
 	protected virtual void Update()
 	{
+		if (Input.GetButtonDown("Back"))
+		{
+			Application.Quit();
+		}
+
 		if (_isFading)
 		{
 			var color = fadeToBlack.color;

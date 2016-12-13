@@ -20,7 +20,7 @@ public class LoseState : BaseState
 
 	public override void Update()
 	{
-		if (Input.GetButtonDown("Use"))
+		if (Input.GetButtonDown("Jump"))
 		{
 			StateManager.Instance.SetState(new MenuState());
 		}
