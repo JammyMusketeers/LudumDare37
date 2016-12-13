@@ -121,9 +121,9 @@ public class Chunk
 	public void AddLoot()
 	{
 		var chunkSize = GameManager.Instance.chunkSize;
-		var spawnDistanceAdd = GameManager.Instance.lootSpawnDistanceAdd * x;
-		var minLootSpawn = GameManager.Instance.minLootSpawn + spawnDistanceAdd;
-		var maxLootSpawn = GameManager.Instance.maxLootSpawn + spawnDistanceAdd;
+		var chunkDistanceAdd = GameManager.Instance.lootSpawnDistanceAdd * x;
+		var minLootSpawn = GameManager.Instance.minLootSpawn + chunkDistanceAdd;
+		var maxLootSpawn = GameManager.Instance.maxLootSpawn + chunkDistanceAdd;
 		var lootItemPrefabs = GameManager.Instance.lootItemPrefabs;
 		var randomAmount = UnityEngine.Random.Range(minLootSpawn, maxLootSpawn + 1);
 		var spawnPoints = _ground.GetSpawnPoints();
