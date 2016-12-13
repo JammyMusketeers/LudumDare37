@@ -1,0 +1,1067 @@
+fileFormatVersion: 2
+guid: 2cfd54556cf59b643a1199f19bb41972
+timeCreated: 1481593268
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ControllerIcons_0
+    21300002: ControllerIcons_1
+    21300004: ControllerIcons_2
+    21300006: ControllerIcons_3
+    21300008: ControllerIcons_4
+    21300010: ControllerIcons_5
+    21300012: ControllerIcons_6
+    21300014: ControllerIcons_7
+    21300016: ControllerIcons_8
+    21300018: ControllerIcons_9
+    21300020: ControllerIcons_10
+    21300022: ControllerIcons_11
+    21300024: ControllerIcons_12
+    21300026: ControllerIcons_13
+    21300028: ControllerIcons_14
+    21300030: ControllerIcons_15
+    21300032: ControllerIcons_16
+    21300034: ControllerIcons_17
+    21300036: ControllerIcons_18
+    21300038: ControllerIcons_19
+    21300040: ControllerIcons_20
+    21300042: ControllerIcons_21
+    21300044: ControllerIcons_22
+    21300046: ControllerIcons_23
+    21300048: ControllerIcons_24
+    21300050: ControllerIcons_25
+    21300052: ControllerIcons_26
+    21300054: ControllerIcons_27
+    21300056: ControllerIcons_28
+    21300058: ControllerIcons_29
+    21300060: ControllerIcons_30
+    21300062: ControllerIcons_31
+    21300064: ControllerIcons_32
+    21300066: ControllerIcons_33
+    21300068: ControllerIcons_34
+    21300070: ControllerIcons_35
+    21300072: ControllerIcons_36
+    21300074: ControllerIcons_37
+    21300076: ControllerIcons_38
+    21300078: ControllerIcons_39
+    21300080: ControllerIcons_40
+    21300082: ControllerIcons_41
+    21300084: ControllerIcons_42
+    21300086: ControllerIcons_43
+    21300088: ControllerIcons_44
+    21300090: ControllerIcons_45
+    21300092: ControllerIcons_46
+    21300094: ControllerIcons_47
+    21300096: ControllerIcons_48
+    21300098: ControllerIcons_49
+    21300100: ControllerIcons_50
+    21300102: ControllerIcons_51
+    21300104: ControllerIcons_52
+    21300106: ControllerIcons_53
+    21300108: ControllerIcons_54
+    21300110: ControllerIcons_55
+    21300112: ControllerIcons_56
+    21300114: ControllerIcons_57
+    21300116: ControllerIcons_58
+    21300118: ControllerIcons_59
+    21300120: ControllerIcons_60
+    21300122: ControllerIcons_61
+    21300124: ControllerIcons_62
+    21300126: ControllerIcons_63
+    21300128: ControllerIcons_64
+    21300130: ControllerIcons_65
+    21300132: ControllerIcons_66
+    21300134: ControllerIcons_67
+    21300136: ControllerIcons_68
+    21300138: ControllerIcons_69
+    21300140: ControllerIcons_70
+    21300142: ControllerIcons_71
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ControllerIcons_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 177
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 177
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_2
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 169
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_3
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 176
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_4
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 176
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_5
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 170
+        width: 37
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 176
+        width: 50
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_7
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 173
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_8
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 170
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_9
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 171
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_10
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 170
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_11
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 173
+        width: 50
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_12
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 170
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_13
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 170
+        width: 45
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_14
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 170
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_15
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 171
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_16
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 122
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_17
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 122
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_18
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 114
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_19
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 121
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_20
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 121
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_21
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 114
+        width: 37
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_22
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 120
+        width: 50
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_23
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 117
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_24
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 118
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_25
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_26
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_27
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_28
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_29
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_30
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 117
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_31
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 121
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_32
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 126
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_33
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 126
+        width: 42
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_34
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_35
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_36
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_37
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_38
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_39
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_40
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 62
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_41
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 60
+        width: 48
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_42
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 61
+        width: 48
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_43
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 63
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_44
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 63
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_45
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 63
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_46
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 63
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_47
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 70
+        width: 42
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_48
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 72
+        width: 36
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_49
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 69
+        width: 45
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_50
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 69
+        width: 39
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_51
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 67
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_52
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 67
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_53
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_54
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_55
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_56
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_57
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_58
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_59
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 8
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_60
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 6
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_61
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 6
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_62
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 9
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_63
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 8
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_64
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 9
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_65
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 9
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_66
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 16
+        width: 32
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_67
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 16
+        width: 32
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_68
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 13
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_69
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 13
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_70
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 6
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ControllerIcons_71
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 6
+        width: 34
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
