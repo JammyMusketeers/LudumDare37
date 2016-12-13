@@ -29,6 +29,11 @@ public class InventoryBox : MonoBehaviour
 			contents[i] = null;
 		}
 
+		foreach (var item in ui.inventory.items)
+		{
+			item.icon.sprite = null;
+		}
+
 		ui.ShowInventoryPanel(false);
 
 		_isOpen = false;
