@@ -47,6 +47,9 @@ ModelImporter:
     100078: COL_int
     100080: engineblock
     100082: exhaust
+    100084: Box02
+    100086: Exterior_cutaway
+    100088: SideDeco
     400000: bed
     400002: chair
     400004: DriveLever
@@ -89,6 +92,9 @@ ModelImporter:
     400078: COL_int
     400080: engineblock
     400082: exhaust
+    400084: Box02
+    400086: Exterior_cutaway
+    400088: SideDeco
     2300000: bed
     2300002: chair
     2300004: DriveLever
@@ -127,6 +133,9 @@ ModelImporter:
     2300070: COL_int
     2300072: engineblock
     2300074: exhaust
+    2300076: Box02
+    2300078: Exterior_cutaway
+    2300080: SideDeco
     3300000: bed
     3300002: chair
     3300004: DriveLever
@@ -165,6 +174,9 @@ ModelImporter:
     3300070: COL_int
     3300072: engineblock
     3300074: exhaust
+    3300076: Box02
+    3300078: Exterior_cutaway
+    3300080: SideDeco
     4300000: rail_R
     4300002: sleeper00
     4300004: sleeper01
@@ -203,6 +215,9 @@ ModelImporter:
     4300070: exhaust
     4300072: COL_int
     4300074: COL_ext
+    4300076: SideDeco
+    4300078: Box02
+    4300080: Exterior_cutaway
   materials:
     importMaterials: 1
     materialName: 0
