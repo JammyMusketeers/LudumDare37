@@ -121,7 +121,7 @@ public class Chunk
 	public void AddLoot()
 	{
 		var chunkSize = GameManager.Instance.chunkSize;
-		var chunkDistanceAdd = GameManager.Instance.lootSpawnDistanceAdd * x;
+		var chunkDistanceAdd = Mathf.Abs(GameManager.Instance.lootSpawnDistanceAdd * x);
 		var minLootSpawn = GameManager.Instance.minLootSpawn + chunkDistanceAdd;
 		var maxLootSpawn = GameManager.Instance.maxLootSpawn + chunkDistanceAdd;
 		var lootItemPrefabs = GameManager.Instance.lootItemPrefabs;
