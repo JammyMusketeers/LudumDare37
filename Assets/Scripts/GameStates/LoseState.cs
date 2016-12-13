@@ -8,6 +8,8 @@ public class LoseState : BaseState
 		GameManager.Instance.loseUI.SetActive(true);
 		GameManager.Instance.MuteMusic();
 
+		StormManager.Instance.SetStormActive(false);
+
 		UIManager.Instance.loseDistanceTravelled.text = UIManager.Instance.distanceAmount.text;
 	}
 

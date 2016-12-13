@@ -51,11 +51,78 @@ public class StormManager : Singleton<StormManager>
 		stormLevel1 = false;
 		stormLevel2 = false;
 		stormLevel3 = false;
+
+		var distance = player.gameObject.transform.position.z - storm.transform.position.z;
+
+		UpdateStormSounds(distance);
 	}
 	
 	public void SetStormActive(bool isActive)
 	{
 		_isStormActive = isActive;
+	}
+
+	public void UpdateStormSounds(float distance)
+	{
+		if (distance < audioChannel1MaxRange)
+		{
+			if (distance > audioChannel1MinRange) 
+			{
+				float rangeArea = audioChannel1MaxRange - audioChannel1MinRange;
+				float pointInRange = distance - audioChannel1MinRange;
+				float proportion = pointInRange / rangeArea;
+				float volumeModifier = offVolume * proportion;
+				audioMixer.SetFloat("level1Vol", volumeModifier);
+			}
+			else
+			{
+				audioMixer.SetFloat("level1Vol", 0);
+			}
+		}
+		else
+		{
+			audioMixer.SetFloat("level1Vol", offVolume);
+		}
+
+		if (distance < audioChannel2MaxRange)
+		{
+			if (distance > audioChannel2MinRange) 
+			{
+				float rangeArea = audioChannel2MaxRange - audioChannel2MinRange;
+				float pointInRange = distance - audioChannel2MinRange;
+				float proportion = pointInRange / rangeArea;
+				float volumeModifier = offVolume * proportion;
+				audioMixer.SetFloat("level2Vol", volumeModifier);
+			}
+			else
+			{
+				audioMixer.SetFloat("level2Vol", 0);
+			}
+		}
+		else
+		{
+			audioMixer.SetFloat("level2Vol", offVolume);
+		}
+
+		if (distance < audioChannel3MaxRange)
+		{
+			if (distance > audioChannel3MinRange) 
+			{
+				float rangeArea = audioChannel3MaxRange - audioChannel3MinRange;
+				float pointInRange = distance - audioChannel3MinRange;
+				float proportion = pointInRange / rangeArea;
+				float volumeModifier = offVolume * proportion;
+				audioMixer.SetFloat("level3Vol", volumeModifier);
+			}
+			else
+			{
+				audioMixer.SetFloat("level3Vol", 0);
+			}
+		}
+		else
+		{
+			audioMixer.SetFloat("level3Vol", offVolume);
+		}
 	}
 
 	protected virtual void Update()
@@ -124,67 +191,7 @@ public class StormManager : Singleton<StormManager>
 				s3.enabled = true;
 			}
 
-			// sound updates
-
-			if (distance < audioChannel1MaxRange)
-			{
-				if (distance > audioChannel1MinRange) 
-				{
-					float rangeArea = audioChannel1MaxRange - audioChannel1MinRange;
-					float pointInRange = distance - audioChannel1MinRange;
-					float proportion = pointInRange / rangeArea;
-					float volumeModifier = offVolume * proportion;
-					audioMixer.SetFloat("level1Vol", volumeModifier);
-				}
-				else
-				{
-					audioMixer.SetFloat("level1Vol", 0);
-				}
-			}
-			else
-			{
-				audioMixer.SetFloat("level1Vol", offVolume);
-			}
-
-			if (distance < audioChannel2MaxRange)
-			{
-				if (distance > audioChannel2MinRange) 
-				{
-					float rangeArea = audioChannel2MaxRange - audioChannel2MinRange;
-					float pointInRange = distance - audioChannel2MinRange;
-					float proportion = pointInRange / rangeArea;
-					float volumeModifier = offVolume * proportion;
-					audioMixer.SetFloat("level2Vol", volumeModifier);
-				}
-				else
-				{
-					audioMixer.SetFloat("level2Vol", 0);
-				}
-			}
-			else
-			{
-				audioMixer.SetFloat("level2Vol", offVolume);
-			}
-
-			if (distance < audioChannel3MaxRange)
-			{
-				if (distance > audioChannel3MinRange) 
-				{
-					float rangeArea = audioChannel3MaxRange - audioChannel3MinRange;
-					float pointInRange = distance - audioChannel3MinRange;
-					float proportion = pointInRange / rangeArea;
-					float volumeModifier = offVolume * proportion;
-					audioMixer.SetFloat("level3Vol", volumeModifier);
-				}
-				else
-				{
-					audioMixer.SetFloat("level3Vol", 0);
-				}
-			}
-			else
-			{
-				audioMixer.SetFloat("level3Vol", offVolume);
-			}
+			UpdateStormSounds(distance);
 
 			if (distance < stormKillDistance)
 			{

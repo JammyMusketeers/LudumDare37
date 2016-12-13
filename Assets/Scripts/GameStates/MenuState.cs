@@ -13,9 +13,6 @@ public class MenuState : BaseState
 
 		GameManager.Instance.PlayMusic();
 
-		StormManager.Instance.ResetStorm(new Vector3(0f, 0f, 0f));
-		StormManager.Instance.SetStormActive(false);
-
 		var chunkDistance = GameManager.Instance.chunkDistance;
 
 		for (int x = -chunkDistance; x <= chunkDistance; x++)
@@ -40,6 +37,9 @@ public class MenuState : BaseState
 		GameManager.Instance.CurrentPlayer.Reset();
 		GameManager.Instance.CurrentPlayer.SetHidden(true);
 		GameManager.Instance.CurrentPlayer.PutInsideTram(GameManager.Instance.CurrentTram);
+
+		StormManager.Instance.ResetStorm(new Vector3(0f, 0f, 0f));
+		StormManager.Instance.SetStormActive(false);
 	}
 
 	public override void OnUnload(BaseState nextState)
