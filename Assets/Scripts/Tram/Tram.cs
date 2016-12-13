@@ -10,6 +10,7 @@ public class Tram : MonoBehaviour
 	public float momentumDecay = 1f;
 	public Vector3 moveVector;
 	public GameObject exterior;
+	public GameObject exteriorSubstitute;
 	public Collider entryTrigger;
 	public Collider exitTrigger;
 	public Collider exteriorCollider;
@@ -55,7 +56,8 @@ public class Tram : MonoBehaviour
 	public virtual void PlayerEnter(Player player)
 	{
 		exteriorCollider.enabled = false;
-		exterior.GetComponent<Renderer>().enabled = false;
+		exteriorSubstitute.SetActive(true);
+		exterior.SetActive(false);
 
 		_player = player;
 	}
@@ -63,7 +65,8 @@ public class Tram : MonoBehaviour
 	public virtual void PlayerLeave(Player player)
 	{
 		exteriorCollider.enabled = true;
-		exterior.GetComponent<Renderer>().enabled = true;
+		exteriorSubstitute.SetActive(false);
+		exterior.SetActive(true);
 
 		_player = null;
 	}
